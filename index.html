@@ -49,7 +49,6 @@
             gap: 2rem;
         }
 
-        /* Style for the portrait */
         .profile-pic {
             width: 140px;
             height: 140px;
@@ -59,6 +58,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: transform 0.2s ease-in-out;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .profile-pic:hover {
@@ -183,7 +183,6 @@
             font-weight: 500;
         }
 
-        /* Mobile responsiveness adjustments */
         @media (max-width: 640px) {
             .container {
                 padding: 1.75rem;
@@ -210,9 +209,8 @@
 
 <div class="container">
     <header>
-        <!-- The Picture, assuming it's named exactly image.jpg in the root folder -->
-        <a href="image.jpg" target="_blank">
-            <img src="image.jpg" alt="Anthony Tran Portrait" class="profile-pic">
+        <a href="Profile.png" target="_blank">
+            <img src="Profile.png" alt="Anthony Tran Portrait" class="profile-pic">
         </a>
         <div class="header-text">
             <h1>Anthony Tran</h1>
