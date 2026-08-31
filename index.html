@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthony Tran | Professional Portfolio & Resume</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0284c7;
+            --border: #334155;
+            --tag-bg: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2.5rem 1rem;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+            margin-bottom: 0.35rem;
+        }
+
+        .license {
+            font-size: 1.05rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .contact-links a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-links a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.15rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            border-left: 3px solid var(--primary);
+            padding-left: 0.75rem;
+        }
+
+        .summary-text {
+            color: var(--text-muted);
+            font-size: 1.02rem;
+            line-height: 1.7;
+        }
+
+        .item {
+            margin-bottom: 1.75rem;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .item-date {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .item-subtitle {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        ul {
+            list-style-position: outside;
+            padding-left: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        li strong {
+            color: var(--text-main);
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .skill-tag {
+            background-color: var(--tag-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.4rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.75rem;
+            }
+            .item-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Anthony Tran</h1>
+        <div class="license">Licensed Real Estate Agent | California DRE #01985292</div>
+        <div class="contact-links">
+            <span>Location: San Jose, CA</span>
+            <span>LinkedIn: <a href="https://linkedin.com" target="_blank">linkedin.com/in/anthonytran</a></span>
+            <span>YouTube: <a href="https://youtube.com" target="_blank">youtube.com/@anthonytran</a></span>
+            <span>TikTok: <a href="https://tiktok.com" target="_blank">tiktok.com/@anthonytran</a></span>
+        </div>
+    </header>
+
+    <section>
+        <h2>Professional Summary</h2>
+        <p class="summary-text">
+            Client-focused and results-driven California Real Estate Agent with over six years of specialized experience in mobile and manufactured home transactions throughout the Bay Area. Combines deep market expertise and digital media strategies with independent development experience in quantitative modeling, systematic validation, and structured workflow execution.
+        </p>
+    </section>
+
+    <section>
+        <h2>Core Competencies</h2>
+        <div class="skills-grid">
+            <span class="skill-tag">Manufactured & Mobile Homes</span>
+            <span class="skill-tag">End-to-End Deal Execution</span>
+            <span class="skill-tag">Community Residency Approvals</span>
+            <span class="skill-tag">Contract Negotiation</span>
+            <span class="skill-tag">Video Marketing (YouTube & TikTok)</span>
+            <span class="skill-tag">Lead Generation & Open Houses</span>
+            <span class="skill-tag">Quantitative Backtesting & Validation</span>
+            <span class="skill-tag">Risk & Model Analysis</span>
+        </div>
+    </section>
+
+    <section>
+        <h2>Professional Experience</h2>
+        <div class="item">
+            <div class="item-header">
+                <span class="item-title">Licensed Real Estate Agent</span>
+                <span class="item-date">2018 – Present</span>
+            </div>
+            <div class="item-subtitle">Independent Real Estate Practice — San Jose, CA</div>
+            <ul>
+                <li><strong>Transaction Management:</strong> Lead full-cycle acquisition and disposition of manufactured and mobile home properties, consistently maintaining strong list-to-sale price ratios.</li>
+                <li><strong>Park & Residency Compliance:</strong> Guide buyers and sellers through specialized park management applications, HCD transfer protocols, and community approval boards with zero deal fallouts.</li>
+                <li><strong>Digital Marketing & Outreach:</strong> Produce, shoot, and edit targeted video walkthroughs on YouTube and TikTok, scaling organic buyer reach and generating direct inbound inquiries.</li>
+                <li><strong>Negotiation & Contracts:</strong> Draft and review standard purchase agreements, counter-offers, and contingency removals while securing favorable terms for both on-market and off-market clients.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Independent & Development Projects</h2>
+        <div class="item">
+            <div class="item-header">
+                <span class="item-title">Quantitative Model & Strategy Development</span>
+                <span class="item-date">2-Year Project</span>
+            </div>
+            <div class="item-subtitle">Independent Project — System Design & Execution</div>
+            <ul>
+                <li><strong>System Architecture & Design:</strong> Engineered a structured analytical model over a 2-year lifecycle, establishing automated rule-based execution parameters and strict risk-management protocols.</li>
+                <li><strong>Rapid Milestone Validation:</strong> Designed and deployed an initial prototype that achieved a verified, successful trial run within the first 3 months of implementation.</li>
+                <li><strong>Iterative Backtesting & Confirmation:</strong> Executed repeated historical and out-of-sample backtesting runs across multi-condition market datasets to validate edge consistency, reduce drawdowns, and confirm long-term statistical stability.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        <div class="item">
+            <div class="item-header">
+                <span class="item-title">Bachelor of Science in Business Administration (BSBA)</span>
+                <span class="item-date">In Progress</span>
+            </div>
+            <div class="item-subtitle">San Jose State University — San Jose, CA</div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
