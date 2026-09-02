@@ -1,3 +1,7 @@
+Here is the updated `index.html` with your three MLSListings / Aculist market trend widgets integrated into a clean, responsive "Live San Jose Market Trends" section (covering **Median Sales Price vs List Price**, **Days on Market**, and **Price Per Square Foot**).
+
+The duplicate script loaders have been consolidated into one script tag at the end of the body, and duplicate `id` tags were removed so that each widget renders independently without conflict.
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -292,6 +296,28 @@
             font-weight: 500;
         }
 
+        /* Market Widget Container Styling */
+        .market-widgets-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .widget-box {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            color: #0f172a;
+            overflow-x: auto;
+        }
+
+        .widget-box h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+            color: #0f172a;
+        }
+
         .cta-banner {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             border: 1px solid var(--primary);
@@ -437,6 +463,67 @@
         </div>
     </section>
 
+    <!-- LIVE MLS MARKET TRENDS SECTION -->
+    <section>
+        <h2>Live San Jose Market Trends</h2>
+        <p class="summary-text" style="margin-bottom: 1.5rem;">
+            Real-time residential market analytics for San Jose, powered by MLSListings / Aculist.
+        </p>
+
+        <div class="market-widgets-container">
+            <!-- Widget 1: Median Sale Price vs List Price -->
+            <div class="widget-box">
+                <div data-widgettype='trends' 
+                     data-aculistwidget="" 
+                     data-geographytype='City' 
+                     data-geographyname='San Jose' 
+                     data-county='Santa Clara' 
+                     data-colors='#fdb921,#0033a0,#7ED321,#1DB2B8' 
+                     data-period='10' 
+                     data-periodtype='Year' 
+                     data-tokenid='defaultmspvslp' 
+                     data-classtype='Residential - Single Family,Residential - Common Interest' 
+                     data-usertoken='7af5dfb5-c8ed-4348-97b3-73200725d6a87af5dfb5-c8ed-4348-97b3-73200725d6a8' 
+                     data-title="true">
+                </div>
+            </div>
+
+            <!-- Widget 2: Days on Market vs List Price -->
+            <div class="widget-box">
+                <div data-widgettype='trends' 
+                     data-aculistwidget="" 
+                     data-geographytype='City' 
+                     data-geographyname='San Jose' 
+                     data-county='Santa Clara' 
+                     data-colors='#fdb921,#0033a0,#7ED321,#1DB2B8' 
+                     data-period='10' 
+                     data-periodtype='Year' 
+                     data-tokenid='defaultdomvslp' 
+                     data-classtype='Residential - Single Family,Residential - Common Interest' 
+                     data-usertoken='7af5dfb5-c8ed-4348-97b3-73200725d6a87af5dfb5-c8ed-4348-97b3-73200725d6a8' 
+                     data-title="true">
+                </div>
+            </div>
+
+            <!-- Widget 3: Price Per Square Foot -->
+            <div class="widget-box">
+                <div data-widgettype='trends' 
+                     data-aculistwidget="" 
+                     data-geographytype='City' 
+                     data-geographyname='San Jose' 
+                     data-county='Santa Clara' 
+                     data-colors='#fdb921,#0033a0,#7ED321,#1DB2B8' 
+                     data-period='10' 
+                     data-periodtype='Year' 
+                     data-tokenid='defaultppsqft' 
+                     data-classtype='Residential - Single Family,Residential - Common Interest' 
+                     data-usertoken='7af5dfb5-c8ed-4348-97b3-73200725d6a87af5dfb5-c8ed-4348-97b3-73200725d6a8' 
+                     data-title="true">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section>
         <h2>Professional Experience & Results</h2>
         <div class="item">
@@ -486,6 +573,18 @@
         <a href="sms:16693673632;?&body=Hi%20Anthony,%20I'm%20interested%20in%20buying/selling%20a%20home%20in%20the%20Bay%20Area." class="cta-btn">💬 Text Anthony: (669) 367-3632</a>
     </div>
 </div>
+
+<!-- MLS / Aculist Script Loader -->
+<script>
+    (function () {
+        var bi = document.createElement('script');
+        bi.type = 'text/javascript';
+        bi.async = true;
+        bi.src = 'https://aculist-widget-assets-cdn.mlslmedia.com/aculist-embed-widgetdiv.js?v=3.2';
+        var s = document.getElementsByTagName('body')[0];
+        s.appendChild(bi);
+    })();
+</script>
 
 </body>
 </html>
