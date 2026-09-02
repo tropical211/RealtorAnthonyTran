@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anthony Tran | Professional Portfolio & Resume</title>
+    <title>Anthony Tran | Silicon Valley & Bay Area Real Estate Specialist</title>
     <style>
         :root {
             --bg: #0f172a;
             --card-bg: #1e293b;
+            --card-inner: #0f172a;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --primary: #38bdf8;
             --primary-hover: #0284c7;
+            --accent: #34d399;
             --border: #334155;
-            --tag-bg: #0f172a;
+            --tag-bg: #1e293b;
         }
 
         * {
@@ -31,12 +33,12 @@
         }
 
         .container {
-            max-width: 860px;
+            max-width: 900px;
             margin: 0 auto;
             background: var(--card-bg);
             padding: 3rem;
             border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border);
         }
 
@@ -50,19 +52,18 @@
         }
 
         .profile-pic {
-            width: 140px;
-            height: 140px;
+            width: 145px;
+            height: 145px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--primary);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease-in-out;
-            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s ease;
             flex-shrink: 0;
         }
 
         .profile-pic:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .header-text {
@@ -70,18 +71,18 @@
         }
 
         h1 {
-            font-size: 2.4rem;
+            font-size: 2.3rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             color: var(--text-main);
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.25rem;
         }
 
         .license {
             font-size: 1.05rem;
             color: var(--primary);
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
         .contact-links {
@@ -104,11 +105,11 @@
         }
 
         section {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2.75rem;
         }
 
         h2 {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: var(--primary);
@@ -117,10 +118,117 @@
             padding-left: 0.75rem;
         }
 
+        .lead-text {
+            color: var(--text-main);
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
         .summary-text {
             color: var(--text-muted);
-            font-size: 1.02rem;
+            font-size: 1rem;
             line-height: 1.7;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-box {
+            background: var(--card-inner);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .value-card {
+            background: var(--card-inner);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .value-card h3 {
+            font-size: 1.25rem;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .value-card.buyer h3 {
+            color: var(--primary);
+        }
+
+        .value-card.seller h3 {
+            color: var(--accent);
+        }
+
+        .value-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.25rem;
+        }
+
+        .benefit-list li {
+            position: relative;
+            padding-left: 1.4rem;
+            margin-bottom: 0.65rem;
+            color: var(--text-main);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .benefit-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .buyer .benefit-list li::before {
+            color: var(--primary);
+        }
+
+        .seller .benefit-list li::before {
+            color: var(--accent);
         }
 
         .item {
@@ -152,18 +260,18 @@
             margin-bottom: 0.75rem;
         }
 
-        ul {
+        .standard-list {
             list-style-position: outside;
             padding-left: 1.25rem;
             color: var(--text-muted);
         }
 
-        li {
-            margin-bottom: 0.5rem;
+        .standard-list li {
+            margin-bottom: 0.6rem;
             line-height: 1.6;
         }
 
-        li strong {
+        .standard-list strong {
             color: var(--text-main);
         }
 
@@ -174,7 +282,7 @@
         }
 
         .skill-tag {
-            background-color: var(--tag-bg);
+            background-color: var(--card-inner);
             border: 1px solid var(--border);
             color: var(--text-main);
             padding: 0.4rem 0.85rem;
@@ -183,7 +291,43 @@
             font-weight: 500;
         }
 
-        @media (max-width: 640px) {
+        .cta-banner {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-banner h3 {
+            font-size: 1.35rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-banner p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: #0f172a;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        @media (max-width: 720px) {
             .container {
                 padding: 1.75rem;
             }
@@ -198,6 +342,9 @@
             }
             .contact-links {
                 justify-content: center;
+            }
+            .value-grid {
+                grid-template-columns: 1fr;
             }
             .item-header {
                 flex-direction: column;
@@ -214,7 +361,7 @@
         </a>
         <div class="header-text">
             <h1>Anthony Tran</h1>
-            <div class="license">Licensed Real Estate Agent | California DRE #01985292</div>
+            <div class="license">Licensed California Real Estate Agent | DRE #01985292</div>
             <div class="contact-links">
                 <span>Location: San Jose, CA</span>
                 <span>LinkedIn: <a href="https://www.linkedin.com/in/realtortran/" target="_blank">linkedin.com/in/realtortran</a></span>
@@ -225,57 +372,105 @@
     </header>
 
     <section>
-        <h2>Professional Summary</h2>
-        <p class="summary-text">
-            Client-focused California Real Estate Agent with over six years of specialized experience executing manufactured and mobile home transactions across the Bay Area. Combines contract negotiation and modern digital media marketing with cross-border operational management, capital allocation, and systematic risk-managed intraday trading.
+        <h2>Why Work With Me</h2>
+        <p class="lead-text">
+            I deliver measurable financial leverage at the closing table, protect your cash reserves, and eliminate transaction risk.
         </p>
-    </section>
+        <p class="summary-text">
+            Real estate transactions in Silicon Valley require an aggressive contractual edge. Across 30+ completed transactions, my strategic negotiations have saved clients an average of $10,000 to $15,000 in direct contract terms—secured through repair credits, closing cost concessions, price adjustments, and fee allocations. Whether you are coming in with cash, securing a mortgage, or looking to cash out maximum equity as a seller, you get a data-driven negotiator who treats your capital like his own.
+        </p>
 
-    <section>
-        <h2>Core Competencies</h2>
-        <div class="skills-grid">
-            <span class="skill-tag">Manufactured & Mobile Homes</span>
-            <span class="skill-tag">Remote Transaction Execution</span>
-            <span class="skill-tag">Community Residency Approvals</span>
-            <span class="skill-tag">Contract Negotiation</span>
-            <span class="skill-tag">Video Marketing (YouTube & TikTok)</span>
-            <span class="skill-tag">Cross-Border Operations & Geo-Arbitrage</span>
-            <span class="skill-tag">Quantitative Intraday Trading</span>
-            <span class="skill-tag">Cost Modeling & Risk Management</span>
+        <div class="stat-grid">
+            <div class="stat-box">
+                <div class="stat-number">$10K – $15K</div>
+                <div class="stat-label">Avg. Contract Savings</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">30+</div>
+                <div class="stat-label">Closed Transactions</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">6+ Years</div>
+                <div class="stat-label">Bay Area Market Focus</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">0%</div>
+                <div class="stat-label">Park Fallout Rate</div>
+            </div>
         </div>
     </section>
 
     <section>
-        <h2>Professional Experience</h2>
+        <h2>Tailored Client Representation</h2>
+        <div class="value-grid">
+            <div class="value-card buyer">
+                <div>
+                    <h3>For Home Buyers</h3>
+                    <p>Whether you hold liquid cash or are leveraging specialized mortgage or chattel financing, I protect your earnest deposit and secure institutional terms.</p>
+                    <ul class="benefit-list">
+                        <li><strong>$10K–$15K Term Savings:</strong> Ruthless negotiation on inspection findings, closing cost credits, and purchase price offsets that keep thousands of dollars in your bank account.</li>
+                        <li><strong>Cash & Financing Structuring:</strong> Tailored offer packaging to make mortgage-backed offers as compelling as all-cash bids to listing agents and sellers.</li>
+                        <li><strong>Park Approval Assurance:</strong> Comprehensive audit of park tenancy rules, income qualification formulas, and background verifications with zero application denials.</li>
+                        <li><strong>Title & Lien Clearance:</strong> Rigorous audits through HCD and county records to confirm zero hidden tax holds, mechanics liens, or undisclosed park debt.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="value-card seller">
+                <div>
+                    <h3>For Home Sellers</h3>
+                    <p>Keep the equity you worked hard to build. I insulate you from post-inspection credit renegotiations and market your home for top-dollar liquidity.</p>
+                    <ul class="benefit-list">
+                        <li><strong>Protected Net Proceeds:</strong> Defend your bottom line against unwarranted buyer repair demands and lock in contracts that close at agreed-upon numbers.</li>
+                        <li><strong>Targeted Video Distribution:</strong> Custom video property showcases filmed and distributed via YouTube (@BayRealtorTran) and TikTok (@TonyTravelVN) to create massive buyer urgency.</li>
+                        <li><strong>Pre-Screened Buyers Only:</strong> Cross-check pre-approvals and cash verification with park management requirements prior to contract signing, eliminating 30-day escrow fallouts.</li>
+                        <li><strong>Space Rent Strategy:</strong> Optimize listing price points against current and projected park space rents to maximize buyer purchasing capacity.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Professional Experience & Results</h2>
         <div class="item">
             <div class="item-header">
-                <span class="item-title">Licensed Real Estate Agent</span>
+                <span class="item-title">Licensed Real Estate Agent & Contract Strategist</span>
                 <span class="item-date">2018 – Present</span>
             </div>
             <div class="item-subtitle">Independent Real Estate Practice — San Jose, CA</div>
-            <ul>
-                <li><strong>Transaction Management:</strong> Lead full-cycle acquisition and disposition of manufactured and mobile home properties, consistently maintaining strong list-to-sale price ratios.</li>
-                <li><strong>Park & Residency Compliance:</strong> Guide buyers and sellers through specialized park management applications, HCD transfer protocols, and community approval boards with zero deal fallouts.</li>
-                <li><strong>Digital Marketing & Outreach:</strong> Produce, shoot, and edit targeted video walkthroughs on YouTube and TikTok, scaling organic buyer reach and generating direct inbound inquiries.</li>
-                <li><strong>Negotiation & Contracts:</strong> Draft and review standard purchase agreements, counter-offers, and contingency removals while securing favorable terms for both on-market and off-market clients.</li>
+            <ul class="standard-list">
+                <li><strong>High-Value Contract Negotiations:</strong> Successfully negotiated 30+ transactions, capturing an average of $10,000 to $15,000 in direct contract term value per deal through inspection credits, fee absorptions, and price structure modifications.</li>
+                <li><strong>Park & Regulatory Compliance:</strong> Flawlessly navigated complex California Department of Housing and Community Development (HCD) transfer procedures, park resale inspections, and residency approvals with a 100% closing completion rate in escrow.</li>
+                <li><strong>Organic Video Distribution:</strong> Produced and distributed high-engagement video walkthrough tours across YouTube and TikTok, generating tens of thousands of direct buyer views and cutting standard days on market.</li>
+                <li><strong>End-to-End Escrow Protection:</strong> Drafted and executed customized addenda, counter-offers, and contingency removals to shield clients from deposit forfeiture and post-close liability.</li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <div class="item-header">
+                <span class="item-title">Cross-Border Operations & Systematic Execution</span>
+                <span class="item-date">2-Year Project</span>
+            </div>
+            <div class="item-subtitle">Remote Deal Infrastructure & Analytical Cost Modeling</div>
+            <ul class="standard-list">
+                <li><strong>Remote Deal Infrastructure:</strong> Built cross-border communication pipelines to facilitate real estate negotiations, document signings, and escrow milestones remotely with zero operational delay.</li>
+                <li><strong>Analytical Capital Allocation:</strong> Executed systematic risk-managed financial models, combining discipline and quantitative validation to maintain high execution reliability.</li>
             </ul>
         </div>
     </section>
 
     <section>
-        <h2>Independent & Development Projects</h2>
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Cross-Border Operations & Quantitative Capital Allocation Project</span>
-                <span class="item-date">2-Year Project</span>
-            </div>
-            <div class="item-subtitle">Financial Modeling, Remote Business Infrastructure & Systematic Trading</div>
-            <ul>
-                <li><strong>Geo-Arbitrage & Cost Modeling:</strong> Designed and implemented a financial expenditure model comparing Bay Area vs. Southeast Asia operating expenses, reducing baseline living overhead while maintaining full business operational capacity.</li>
-                <li><strong>Remote Deal Infrastructure:</strong> Built cross-border digital communication workflows and transaction pipelines to facilitate California real estate contract negotiation and closing processes remotely with zero operational downtime.</li>
-                <li><strong>Systematic Intraday Strategy:</strong> Engineered a disciplined US market intraday trading model, executing systematic entries and strict risk controls to achieve consistent, repeatable daily alpha targets during active sessions.</li>
-                <li><strong>Empirical Backtesting & Confirmation:</strong> Validated strategy parameters through continuous multi-condition backtesting and historical data verification, optimizing drawdown thresholds and confirming long-term consistency.</li>
-            </ul>
+        <h2>Core Value & Expertise</h2>
+        <div class="skills-grid">
+            <span class="skill-tag">$10K–$15K Average Term Savings</span>
+            <span class="skill-tag">30+ Closed Transactions</span>
+            <span class="skill-tag">Buyer Cash & Loan Strategy</span>
+            <span class="skill-tag">Seller Equity Maximization</span>
+            <span class="skill-tag">Manufactured & Mobile Home Valuation</span>
+            <span class="skill-tag">Park Application Approval Specialist</span>
+            <span class="skill-tag">HCD & County Title Transfer</span>
+            <span class="skill-tag">High-Impact Video Marketing</span>
         </div>
     </section>
 
@@ -289,6 +484,12 @@
             <div class="item-subtitle">De Anza College — Cupertino, CA</div>
         </div>
     </section>
+
+    <div class="cta-banner">
+        <h3>Ready to Buy or Sell in the Bay Area?</h3>
+        <p>Let's evaluate your target property, financing strategy, or current home value to make sure you capture the highest possible return.</p>
+        <a href="https://www.linkedin.com/in/realtortran/" target="_blank" class="cta-btn">Connect With Anthony</a>
+    </div>
 </div>
 
 </body>
