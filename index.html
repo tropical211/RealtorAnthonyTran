@@ -1,8 +1,3 @@
-Here is the updated `index.html` with your three MLSListings / Aculist market trend widgets integrated into a clean, responsive "Live San Jose Market Trends" section (covering **Median Sales Price vs List Price**, **Days on Market**, and **Price Per Square Foot**).
-
-The duplicate script loaders have been consolidated into one script tag at the end of the body, and duplicate `id` tags were removed so that each widget renders independently without conflict.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +45,7 @@ The duplicate script loaders have been consolidated into one script tag at the e
         header {
             border-bottom: 1px solid var(--border);
             padding-bottom: 2rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
             gap: 2rem;
@@ -109,6 +104,67 @@ The duplicate script loaders have been consolidated into one script tag at the e
             text-decoration: underline;
         }
 
+        /* Hero Search Bar Section */
+        .hero-search-section {
+            background: var(--card-inner);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 2.75rem;
+        }
+
+        .hero-search-section h2 {
+            border: none;
+            padding: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .hero-search-section p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 240px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+        }
+
+        .search-btn {
+            background: var(--primary);
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-hover);
+        }
+
         section {
             margin-bottom: 2.75rem;
         }
@@ -135,6 +191,13 @@ The duplicate script loaders have been consolidated into one script tag at the e
             color: var(--text-muted);
             font-size: 1rem;
             line-height: 1.7;
+        }
+
+        .disclaimer-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
         }
 
         .stat-grid {
@@ -380,6 +443,9 @@ The duplicate script loaders have been consolidated into one script tag at the e
             .item-header {
                 flex-direction: column;
             }
+            .search-form {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -402,6 +468,22 @@ The duplicate script loaders have been consolidated into one script tag at the e
             </div>
         </div>
     </header>
+
+    <!-- MLS PROPERTY SEARCH SECTION -->
+    <section class="hero-search-section">
+        <h2>Search Bay Area MLS Listings</h2>
+        <p>Explore current homes for sale across Silicon Valley and Santa Clara County directly through MLSListings.</p>
+        <form class="search-form" action="https://www.mlslistings.com/Search/Result" method="GET" target="_blank">
+            <input 
+                type="text" 
+                name="searchText" 
+                class="search-input" 
+                placeholder="Enter City, ZIP, Address, or Neighborhood (e.g., San Jose, 95111)" 
+                required
+            >
+            <button type="submit" class="search-btn">🔍 Search MLS</button>
+        </form>
+    </section>
 
     <section>
         <h2>Why Work With Me</h2>
@@ -466,8 +548,11 @@ The duplicate script loaders have been consolidated into one script tag at the e
     <!-- LIVE MLS MARKET TRENDS SECTION -->
     <section>
         <h2>Live San Jose Market Trends</h2>
-        <p class="summary-text" style="margin-bottom: 1.5rem;">
+        <p class="summary-text" style="margin-bottom: 0.4rem;">
             Real-time residential market analytics for San Jose, powered by MLSListings / Aculist.
+        </p>
+        <p class="disclaimer-text">
+            Market trend analytics are compiled from closed MLSListings transactions and update automatically on a monthly cycle.
         </p>
 
         <div class="market-widgets-container">
@@ -588,5 +673,3 @@ The duplicate script loaders have been consolidated into one script tag at the e
 
 </body>
 </html>
-
-```
