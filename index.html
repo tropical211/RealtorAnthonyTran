@@ -104,65 +104,114 @@
             text-decoration: underline;
         }
 
-        /* Hero Search Bar Section */
-        .hero-search-section {
-            background: var(--card-inner);
-            border: 1px solid var(--border);
+        /* MLS Hero Search Banner */
+        .mls-hero-container {
+            position: relative;
             border-radius: 12px;
-            padding: 1.75rem;
+            overflow: hidden;
             margin-bottom: 2.75rem;
-        }
-
-        .hero-search-section h2 {
-            border: none;
-            padding: 0;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .hero-search-section p {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .search-form {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 240px;
-            background: var(--bg);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s;
+            background-image: linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1400&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 3.5rem 1.5rem;
+            text-align: center;
         }
 
-        .search-input:focus {
-            border-color: var(--primary);
-        }
-
-        .search-btn {
-            background: var(--primary);
-            color: #0f172a;
-            border: none;
-            border-radius: 8px;
-            padding: 0.75rem 1.5rem;
+        .mls-hero-title {
+            font-size: 2.1rem;
             font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .mls-hero-title em {
+            font-style: italic;
+            font-family: Georgia, serif;
+            font-weight: 400;
+        }
+
+        .mls-search-wrapper {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .search-tabs {
+            display: flex;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.85);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .search-tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            padding: 0.75rem 1rem;
             font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .search-tab-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .search-tab-btn.active {
+            color: #ffffff;
+        }
+
+        .search-tab-btn.active::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #f59e0b;
+        }
+
+        .mls-input-group {
+            display: flex;
+            background: #ffffff;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .mls-input-group input {
+            flex: 1;
+            border: none;
+            padding: 0.9rem 1.25rem;
+            font-size: 1.05rem;
+            color: #1e293b;
+            outline: none;
+        }
+
+        .mls-input-group button {
+            background: #0077c8;
+            color: #ffffff;
+            border: none;
+            padding: 0 1.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
             cursor: pointer;
             transition: background 0.2s ease;
         }
 
-        .search-btn:hover {
-            background: var(--primary-hover);
+        .mls-input-group button:hover {
+            background: #005a96;
         }
 
         section {
@@ -227,6 +276,60 @@
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
+        }
+
+        /* Case Study / Embedded Video Box */
+        .case-study-card {
+            background: var(--card-inner);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+        }
+
+        .case-study-card h3 {
+            font-size: 1.25rem;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .case-study-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-fallback-link {
+            display: inline-block;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .video-fallback-link:hover {
+            text-decoration: underline;
+            color: var(--primary-hover);
         }
 
         .value-grid {
@@ -359,7 +462,6 @@
             font-weight: 500;
         }
 
-        /* Market Widget Container Styling */
         .market-widgets-container {
             display: flex;
             flex-direction: column;
@@ -373,12 +475,6 @@
             padding: 1.25rem;
             color: #0f172a;
             overflow-x: auto;
-        }
-
-        .widget-box h3 {
-            font-size: 1.05rem;
-            margin-bottom: 0.75rem;
-            color: #0f172a;
         }
 
         .cta-banner {
@@ -443,8 +539,15 @@
             .item-header {
                 flex-direction: column;
             }
-            .search-form {
+            .mls-hero-title {
+                font-size: 1.6rem;
+            }
+            .mls-input-group {
                 flex-direction: column;
+            }
+            .mls-input-group button {
+                padding: 0.85rem;
+                justify-content: center;
             }
         }
     </style>
@@ -469,21 +572,30 @@
         </div>
     </header>
 
-    <!-- MLS PROPERTY SEARCH SECTION -->
-    <section class="hero-search-section">
-        <h2>Search Bay Area MLS Listings</h2>
-        <p>Explore current homes for sale across Silicon Valley and Santa Clara County directly through MLSListings.</p>
-        <form class="search-form" action="https://www.mlslistings.com/Search/Result" method="GET" target="_blank">
-            <input 
-                type="text" 
-                name="searchText" 
-                class="search-input" 
-                placeholder="Enter City, ZIP, Address, or Neighborhood (e.g., San Jose, 95111)" 
-                required
-            >
-            <button type="submit" class="search-btn">🔍 Search MLS</button>
-        </form>
-    </section>
+    <div class="mls-hero-container">
+        <h2 class="mls-hero-title">Find <em>Your Place</em> in California</h2>
+        
+        <div class="mls-search-wrapper">
+            <div class="search-tabs">
+                <button type="button" class="search-tab-btn active" onclick="setSearchType('Buy', this)">Buy</button>
+                <button type="button" class="search-tab-btn" onclick="setSearchType('Rent', this)">Rent</button>
+                <button type="button" class="search-tab-btn" onclick="setSearchType('Recently Sold', this)">Recently Sold</button>
+            </div>
+
+            <form id="mlsSearchForm" action="https://www.mlslistings.com/Search/Result" method="GET" target="_blank">
+                <div class="mls-input-group">
+                    <input 
+                        type="text" 
+                        name="searchText" 
+                        id="mlsSearchInput"
+                        placeholder="San Jose, CA" 
+                        required
+                    >
+                    <button type="submit">🔍 Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <section>
         <h2>Why Work With Me</h2>
@@ -511,6 +623,26 @@
                 <div class="stat-number">0%</div>
                 <div class="stat-label">Park Fallout Rate</div>
             </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Featured Case Study</h2>
+        <div class="case-study-card">
+            <h3>"I solved a seller's worst 2 year nightmare in 2 weeks, here's the story:"</h3>
+            <p>Watch how strategic problem solving, park negotiation, and targeted marketing turned around an unsold listing that languished for years into a confirmed closing in just 14 days.</p>
+            
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/AEgXu-8aYpk" 
+                    title="I solved a seller's worst 2 year nightmare in 2 weeks, here's the story" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <a href="https://youtu.be/AEgXu-8aYpk" target="_blank" class="video-fallback-link">
+                ↗ Watch directly on YouTube (https://youtu.be/AEgXu-8aYpk)
+            </a>
         </div>
     </section>
 
@@ -545,7 +677,6 @@
         </div>
     </section>
 
-    <!-- LIVE MLS MARKET TRENDS SECTION -->
     <section>
         <h2>Live San Jose Market Trends</h2>
         <p class="summary-text" style="margin-bottom: 0.4rem;">
@@ -556,7 +687,6 @@
         </p>
 
         <div class="market-widgets-container">
-            <!-- Widget 1: Median Sale Price vs List Price -->
             <div class="widget-box">
                 <div data-widgettype='trends' 
                      data-aculistwidget="" 
@@ -573,7 +703,6 @@
                 </div>
             </div>
 
-            <!-- Widget 2: Days on Market vs List Price -->
             <div class="widget-box">
                 <div data-widgettype='trends' 
                      data-aculistwidget="" 
@@ -590,7 +719,6 @@
                 </div>
             </div>
 
-            <!-- Widget 3: Price Per Square Foot -->
             <div class="widget-box">
                 <div data-widgettype='trends' 
                      data-aculistwidget="" 
@@ -659,8 +787,28 @@
     </div>
 </div>
 
-<!-- MLS / Aculist Script Loader -->
 <script>
+    // Search tab switcher
+    function setSearchType(type, button) {
+        document.querySelectorAll('.search-tab-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        const form = document.getElementById('mlsSearchForm');
+        const input = document.getElementById('mlsSearchInput');
+        
+        if (type === 'Buy') {
+            form.action = 'https://www.mlslistings.com/Search/Result';
+            input.placeholder = 'San Jose, CA (Homes for Sale)';
+        } else if (type === 'Rent') {
+            form.action = 'https://www.mlslistings.com/Search/Rental';
+            input.placeholder = 'San Jose, CA (Rentals)';
+        } else if (type === 'Recently Sold') {
+            form.action = 'https://www.mlslistings.com/Search/Sold';
+            input.placeholder = 'San Jose, CA (Recently Sold Comps)';
+        }
+    }
+
+    // MLS / Aculist Script Loader
     (function () {
         var bi = document.createElement('script');
         bi.type = 'text/javascript';
