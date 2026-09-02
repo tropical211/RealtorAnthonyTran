@@ -1,3 +1,8 @@
+I have noted your phone number (`669-367-3632`).
+
+Here is your updated `index.html`. The **"Connect With Anthony"** button now uses an `sms:` protocol with a pre-filled greeting so that when users tap it (especially on mobile), their messaging app opens directly addressed to **669-367-3632**. Your phone number has also been added to the header contact row.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -295,13 +300,13 @@
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             border: 1px solid var(--primary);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 2.25rem 2rem;
             text-align: center;
             margin-top: 2rem;
         }
 
         .cta-banner h3 {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             color: var(--text-main);
             margin-bottom: 0.5rem;
         }
@@ -309,22 +314,26 @@
         .cta-banner p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .cta-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             background: var(--primary);
             color: #0f172a;
-            padding: 0.75rem 1.75rem;
+            padding: 0.85rem 1.85rem;
             border-radius: 8px;
             font-weight: 700;
+            font-size: 1rem;
             text-decoration: none;
-            transition: background 0.2s ease;
+            transition: background 0.2s ease, transform 0.1s ease;
         }
 
         .cta-btn:hover {
             background: var(--primary-hover);
+            transform: translateY(-1px);
         }
 
         @media (max-width: 720px) {
@@ -364,6 +373,7 @@
             <div class="license">Licensed California Real Estate Agent | DRE #01985292</div>
             <div class="contact-links">
                 <span>Location: San Jose, CA</span>
+                <span>Cell: <a href="sms:16693673632">669-367-3632</a></span>
                 <span>LinkedIn: <a href="https://www.linkedin.com/in/realtortran/" target="_blank">linkedin.com/in/realtortran</a></span>
                 <span>YouTube: <a href="https://www.youtube.com/@BayRealtorTran" target="_blank">@BayRealtorTran</a></span>
                 <span>TikTok: <a href="https://www.tiktok.com/@TonyTravelVN" target="_blank">@TonyTravelVN</a></span>
@@ -487,10 +497,12 @@
 
     <div class="cta-banner">
         <h3>Ready to Buy or Sell in the Bay Area?</h3>
-        <p>Let's evaluate your target property, financing strategy, or current home value to make sure you capture the highest possible return.</p>
-        <a href="https://www.linkedin.com/in/realtortran/" target="_blank" class="cta-btn">Connect With Anthony</a>
+        <p>Send a direct text to evaluate your target property, financing strategy, or current home value with zero obligation.</p>
+        <a href="sms:16693673632?&body=Hi%20Anthony,%20I'm%20interested%20in%20buying/selling%20a%20home%20in%20the%20Bay%20Area." class="cta-btn">💬 Text Anthony: (669) 367-3632</a>
     </div>
 </div>
 
 </body>
 </html>
+
+```
