@@ -1,196 +1,154 @@
-<!-- =================== INTERACTIVE ACHIEVEMENTS ROADMAP =================== -->
-<section id="achievements-section" class="achieve-wrapper">
-  <div class="achieve-container">
+<!-- =================== ACHIEVEMENTS FUNNEL: RESPONSIVE =================== -->
+<section id="achieve-funnel" class="funnel-section">
+  <div class="funnel-container">
     
-    <header class="achieve-header">
-      <span class="achieve-badge">Interactive Roadmap</span>
-      <h2>Unlock Your Real Estate Milestones</h2>
-      <p>Follow the path to closing. Watch your equity house and investment key unlock as you progress.</p>
-      
-      <!-- Secret click discovery hint -->
-      <div id="secret-hint" class="secret-banner">
-        🎉 <strong>+5% Explorer Bonus Unlocked:</strong> Thanks for visiting! Click on either icon below to find another hidden 5%!
-      </div>
+    <header class="funnel-header">
+      <span class="funnel-badge">Interactive Milestone Funnel</span>
+      <h2>Unlock Your Real Estate Roadmap</h2>
+      <p>Complete each milestone to unlock your custom equity or purchasing blueprint.</p>
     </header>
 
-    <div class="dual-columns">
+    <div class="funnel-grid">
       
-      <!-- ================= LEFT: SELLER COLUMN ================= -->
-      <div class="column-card seller-col">
-        <div class="col-header">
-          <h3>Seller Journey</h3>
-          <span class="pct-tag" id="seller-pct-tag">5% Complete</span>
+      <!-- ================= SELLER COLUMN (Left on desktop, First on mobile) ================= -->
+      <div class="funnel-card seller-card" id="seller-card">
+        <div class="card-head">
+          <h3>Home Seller Blueprint</h3>
+          <span class="pct-pill" id="seller-pill">5% Unlocked</span>
         </div>
 
         <!-- Interactive House Graphic -->
-        <div class="visual-box" id="seller-graphic" title="Click the house for a bonus!">
-          <div class="svg-container">
-            <svg viewBox="0 0 100 100" class="milestone-svg">
+        <div class="icon-trigger" id="seller-icon-box" onclick="unlockBonus('seller')" title="Click for +5% Explorer Bonus!">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 100 100">
               <defs>
                 <clipPath id="house-clip">
-                  <!-- House Shape: Roof Triangle + Body -->
                   <polygon points="50,10 90,45 80,45 80,90 20,90 20,45 10,45" />
                 </clipPath>
               </defs>
-              <!-- Background / Empty House -->
-              <polygon points="50,10 90,45 80,45 80,90 20,90 20,45 10,45" class="svg-bg" />
-              <!-- Fill Level -->
-              <rect id="seller-fill" x="0" y="95" width="100" height="100" fill="url(#seller-gold-grad)" clip-path="url(#house-clip)" />
-              <!-- House Details / Outline -->
-              <polygon points="50,10 90,45 80,45 80,90 20,90 20,45 10,45" class="svg-stroke" />
-              <!-- Door & Window Accents -->
-              <rect x="42" y="60" width="16" height="30" class="svg-accent-stroke" />
-              <rect x="30" y="48" width="12" height="12" class="svg-accent-stroke" />
-              <rect x="58" y="48" width="12" height="12" class="svg-accent-stroke" />
-              
-              <linearGradient id="seller-gold-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+              <polygon points="50,10 90,45 80,45 80,90 20,90 20,45 10,45" class="svg-empty" />
+              <rect id="seller-fill" x="0" y="95" width="100" height="100" fill="url(#gold-grad)" clip-path="url(#house-clip)" />
+              <polygon points="50,10 90,45 80,45 80,90 20,90 20,45 10,45" class="svg-border" />
+              <rect x="42" y="60" width="16" height="30" class="svg-detail" />
+              <linearGradient id="gold-grad" x1="0%" y1="100%" x2="0%" y2="0%">
                 <stop offset="0%" stop-color="#b45309" />
                 <stop offset="100%" stop-color="#fbbf24" />
               </linearGradient>
             </svg>
           </div>
-          <span class="tap-hint">Tap house to inspect & unlock +5%</span>
+          <span class="hint-lbl" id="seller-hint">Tap house to unlock +5% bonus</span>
         </div>
 
-        <!-- Checklist -->
-        <div class="checklist" id="seller-list">
-          <label class="step-item">
-            <input type="checkbox" data-val="18" onchange="updateProgress('seller')">
-            <span class="custom-chk"></span>
-            <div class="step-txt">
-              <strong>1. Strategic Valuation & Comps</strong>
-              <small>Review current neighborhood sales & net equity power</small>
-            </div>
-          </label>
-
-          <label class="step-item">
-            <input type="checkbox" data-val="18" onchange="updateProgress('seller')">
-            <span class="custom-chk"></span>
-            <div class="step-txt">
-              <strong>2. Prep, Staging & Disclosures</strong>
-              <small>Compliance package, natural hazards, pre-inspection</small>
-            </div>
-          </label>
-
-          <label class="step-item">
-            <input type="checkbox" data-val="18" onchange="updateProgress('seller')">
-            <span class="custom-chk"></span>
-            <div class="step-txt">
-              <strong>3. High-Impact Marketing Launch</strong>
-              <small>MLS, digital syndication & targeted buyer outreach</small>
-            </div>
-          </label>
-
-          <label class="step-item">
-            <input type="checkbox" data-val="18" onchange="updateProgress('seller')">
-            <span class="custom-chk"></span>
-            <div class="step-txt">
-              <strong>4. Offer Review & Negotiation</strong>
-              <small>Vetting buyer financing, terms, contingencies</small>
-            </div>
-          </label>
-
-          <label class="step-item">
-            <input type="checkbox" data-val="18" onchange="updateProgress('seller')">
-            <span class="custom-chk"></span>
-            <div class="step-txt">
-              <strong>5. Escrow Closing & Wire Transfer</strong>
-              <small>Final walkthrough, deed recording & funds distributed</small>
-            </div>
-          </label>
+        <!-- Tier 3: Address Confirmation (+20%) -->
+        <div class="step-box" id="seller-tier-3">
+          <label class="step-title">1. Confirm Property Address (+20%)</label>
+          <div class="input-action-row">
+            <input type="text" id="seller-address" placeholder="e.g. 1234 Main St, San Jose, CA" class="form-in">
+            <button type="button" class="mini-btn gold-btn" onclick="confirmAddress('seller')">Confirm</button>
+          </div>
+          <small class="confirmed-msg" id="seller-addr-status"></small>
         </div>
 
-        <a href="#contact" class="action-btn seller-btn">Start Listing Strategy</a>
+        <!-- Tier 4: Seller Timeline or Desired Price (+35%) -->
+        <div class="step-box locked" id="seller-tier-4">
+          <label class="step-title">2. Target Timeline or Desired Price (+35%)</label>
+          
+          <span class="sub-label">Ideal Sale Timeline:</span>
+          <div class="chip-group" style="margin-bottom: 12px;">
+            <button type="button" class="chip" onclick="selectSellerTimeline(this, '0 - 30 Days')">0 - 30 Days</button>
+            <button type="button" class="chip" onclick="selectSellerTimeline(this, '1 - 3 Months')">1 - 3 Months</button>
+            <button type="button" class="chip" onclick="selectSellerTimeline(this, 'Flexible / Testing Market')">Flexible</button>
+          </div>
+
+          <span class="sub-label">Desired Price (Regardless of Market Comps):</span>
+          <div class="input-action-row">
+            <input type="text" id="seller-desired-price" placeholder="e.g. $1,250,000 or Open to Offers" class="form-in">
+            <button type="button" class="mini-btn gold-btn" onclick="confirmSellerTier4()">Lock In</button>
+          </div>
+          <small class="confirmed-msg" id="seller-tier4-status"></small>
+        </div>
+
+        <!-- Tier 5: Final Contact & Claim (+35% -> 100%) -->
+        <div class="step-box locked" id="seller-tier-5">
+          <label class="step-title">3. Where should we send your comparative valuation?</label>
+          <form onsubmit="handleFinalSubmit(event, 'seller')">
+            <input type="text" id="seller-name" placeholder="Your Name" required class="form-in">
+            <input type="tel" id="seller-phone" placeholder="Phone Number" required class="form-in">
+            <input type="email" id="seller-email" placeholder="Email Address" required class="form-in">
+            <button type="submit" class="submit-btn gold-btn">Unlock 100% & Receive Report</button>
+          </form>
+        </div>
       </div>
 
-      <!-- ================= RIGHT: BUYER COLUMN ================= -->
-      <div class="column-card buyer-col">
-        <div class="col-header">
-          <h3>Buyer & Investor Journey</h3>
-          <span class="pct-tag" id="buyer-pct-tag">5% Complete</span>
+      <!-- ================= BUYER COLUMN (Right on desktop, Second on mobile) ================= -->
+      <div class="funnel-card buyer-card" id="buyer-card">
+        <div class="card-head">
+          <h3>Buyer & Investor Blueprint</h3>
+          <span class="pct-pill" id="buyer-pill">5% Unlocked</span>
         </div>
 
-        <!-- Interactive Key Wrapped in Dollar Sign Graphic -->
-        <div class="visual-box" id="buyer-graphic" title="Click the key for a bonus!">
-          <div class="svg-container">
-            <svg viewBox="0 0 100 100" class="milestone-svg">
+        <!-- Interactive Key in Dollar Sign Graphic -->
+        <div class="icon-trigger" id="buyer-icon-box" onclick="unlockBonus('buyer')" title="Click for +5% Explorer Bonus!">
+          <div class="svg-wrap">
+            <svg viewBox="0 0 100 100">
               <defs>
                 <clipPath id="buyer-clip">
-                  <!-- Unified silhouette: Key Body + Dollar Sign Envelope -->
-                  <!-- Dollar Sign vertical bars & curves wrapped around key -->
-                  <path d="M47,5 L53,5 L53,14 C65,15 72,22 72,30 C72,38 65,43 53,45 L53,60 C62,58 66,54 66,50 L74,50 C74,58 67,65 53,67 L53,75 C58,76 60,80 60,85 C60,92 55,97 48,97 C41,97 36,92 36,85 C36,80 38,76 43,75 L43,67 C31,65 24,58 24,49 C24,40 31,35 43,33 L43,18 C35,20 31,24 31,28 L23,28 C23,20 30,13 43,11 L43,5 L47,5 Z 
-                           M53,22 L53,37 C61,35 64,32 64,29 C64,25 61,23 53,22 Z 
-                           M43,41 L43,58 C35,56 32,53 32,49 C32,44 36,42 43,41 Z 
-                           M48,80 C45,80 44,82 44,85 C44,88 45,90 48,90 C51,90 52,88 52,85 C52,82 51,80 48,80 Z" />
-                  <!-- Key teeth cutout -->
+                  <path d="M47,5 L53,5 L53,14 C65,15 72,22 72,30 C72,38 65,43 53,45 L53,60 C62,58 66,54 66,50 L74,50 C74,58 67,65 53,67 L53,75 C58,76 60,80 60,85 C60,92 55,97 48,97 C41,97 36,92 36,85 C36,80 38,76 43,75 L43,67 C31,65 24,58 24,49 C24,40 31,35 43,33 L43,18 C35,20 31,24 31,28 L23,28 C23,20 30,13 43,11 L43,5 L47,5 Z M53,22 L53,37 C61,35 64,32 64,29 C64,25 61,23 53,22 Z M43,41 L43,58 C35,56 32,53 32,49 C32,44 36,42 43,41 Z M48,80 C45,80 44,82 44,85 C44,88 45,90 48,90 C51,90 52,88 52,85 C52,82 51,80 48,80 Z" />
                   <polygon points="53,48 65,48 65,54 53,54 53,58 62,58 62,64 53,64" />
                 </clipPath>
               </defs>
-              <!-- Silhouette Base / Unfilled -->
-              <rect x="0" y="0" width="100" height="100" class="svg-bg" clip-path="url(#buyer-clip)" />
-              <!-- Liquid Fill Level -->
-              <rect id="buyer-fill" x="0" y="95" width="100" height="100" fill="url(#buyer-emerald-grad)" clip-path="url(#buyer-clip)" />
-              <!-- Outer Accent Stroke Lines -->
-              <line x1="50" y1="2" x2="50" y2="98" stroke="#059669" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.4" />
-              
-              <linearGradient id="buyer-emerald-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+              <rect x="0" y="0" width="100" height="100" class="svg-empty" clip-path="url(#buyer-clip)" />
+              <rect id="buyer-fill" x="0" y="95" width="100" height="100" fill="url(#green-grad)" clip-path="url(#buyer-clip)" />
+              <line x1="50" y1="2" x2="50" y2="98" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.4" />
+              <linearGradient id="green-grad" x1="0%" y1="100%" x2="0%" y2="0%">
                 <stop offset="0%" stop-color="#047857" />
                 <stop offset="100%" stop-color="#34d399" />
               </linearGradient>
             </svg>
           </div>
-          <span class="tap-hint">Tap key to inspect & unlock +5%</span>
+          <span class="hint-lbl" id="buyer-hint">Tap key to unlock +5% bonus</span>
         </div>
 
-        <!-- Checklist -->
-        <div class="checklist" id="buyer-list">
-          <label class="step-item">
-            <input type="checkbox" data-val="18" onchange="updateProgress('buyer')">
-            <span class="custom-chk"></span>
-            <div class="step-txt">
-              <strong>1. Pre-Approval & Budget Verification</strong>
-              <small>Loan options, rate lock targets & down payment strategy</small>
-            </div>
-          </label>
-
-          <label class="step-item">
-            <input type="checkbox" data-val="18" onchange="updateProgress('buyer')">
-            <span class="custom-chk"></span>
-            <div class="step-txt">
-              <strong>2. Curated Property Hunting</strong>
-              <small>Targeting on-market & off-market homes, private tours</small>
-            </div>
-          </label>
-
-          <label class="step-item">
-            <input type="checkbox" data-val="18" onchange="updateProgress('buyer')">
-            <span class="custom-chk"></span>
-            <div class="step-txt">
-              <strong>3. Competitive Offer Strategy</strong>
-              <small>Comparative market analysis & strategic purchase contract terms</small>
-            </div>
-          </label>
-
-          <label class="step-item">
-            <input type="checkbox" data-val="18" onchange="updateProgress('buyer')">
-            <span class="custom-chk"></span>
-            <div class="step-txt">
-              <strong>4. Underwriting, Inspections & Appraisal</strong>
-              <small>Physical inspection review, repair credits & loan sign-off</small>
-            </div>
-          </label>
-
-          <label class="step-item">
-            <input type="checkbox" data-val="18" onchange="updateProgress('buyer')">
-            <span class="custom-chk"></span>
-            <div class="step-txt">
-              <strong>5. Final Walkthrough & Key Handover</strong>
-              <small>Deed recorded at county recorder, keys delivered to you</small>
-            </div>
-          </label>
+        <!-- Tier 3: Target Property Confirmation (+20%) -->
+        <div class="step-box" id="buyer-tier-3">
+          <label class="step-title">1. Confirm Target Property or Area (+20%)</label>
+          <div class="input-action-row">
+            <input type="text" id="buyer-address" placeholder="e.g. 567 Willow St, MLS #, or West San Jose" class="form-in">
+            <button type="button" class="mini-btn green-btn" onclick="confirmAddress('buyer')">Confirm</button>
+          </div>
+          <small class="confirmed-msg" id="buyer-addr-status"></small>
         </div>
 
-        <a href="#contact" class="action-btn buyer-btn">Get Pre-Approved</a>
+        <!-- Tier 4: Buyer Cash vs. Financing (+35%) -->
+        <div class="step-box locked" id="buyer-tier-4">
+          <label class="step-title">2. Cash vs. Financing Method (+35%)</label>
+          <div class="chip-group-vertical">
+            <button type="button" class="chip-row" onclick="selectBuyerFinancing(this, 'All-Cash Purchase')">
+              <strong>💵 All-Cash Purchase</strong>
+              <small>No loan required, quick escrow verification</small>
+            </button>
+            <button type="button" class="chip-row" onclick="selectBuyerFinancing(this, 'Have Mortgage / Pre-Approved')">
+              <strong>📑 Have Mortgage / Pre-Approved</strong>
+              <small>Already holding an active pre-approval letter</small>
+            </button>
+            <button type="button" class="chip-row" onclick="selectBuyerFinancing(this, 'Require New Mortgage')">
+              <strong>🏦 Require New Mortgage / Need Pre-Approval</strong>
+              <small>Need loan options, rates & pre-approval consultation</small>
+            </button>
+          </div>
+          <small class="confirmed-msg" id="buyer-tier4-status"></small>
+        </div>
+
+        <!-- Tier 5: Final Contact & Claim (+35% -> 100%) -->
+        <div class="step-box locked" id="buyer-tier-5">
+          <label class="step-title">3. Where should we send off-market comps & rates?</label>
+          <form onsubmit="handleFinalSubmit(event, 'buyer')">
+            <input type="text" id="buyer-name" placeholder="Your Name" required class="form-in">
+            <input type="tel" id="buyer-phone" placeholder="Phone Number" required class="form-in">
+            <input type="email" id="buyer-email" placeholder="Email Address" required class="form-in">
+            <button type="submit" class="submit-btn green-btn">Unlock 100% & Get Property Matches</button>
+          </form>
+        </div>
       </div>
 
     </div>
@@ -199,296 +157,432 @@
 
 <!-- ================= STYLES ================= -->
 <style>
-.achieve-wrapper {
-  background: #0f172a;
+.funnel-section {
+  background: #0b1120;
   color: #f8fafc;
   padding: 60px 20px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  border-bottom: 2px solid #1e293b;
 }
-.achieve-container {
+.funnel-container {
   max-width: 1100px;
   margin: 0 auto;
 }
-.achieve-header {
+.funnel-header {
   text-align: center;
   margin-bottom: 45px;
 }
-.achieve-badge {
-  display: inline-block;
+.funnel-badge {
   background: rgba(59, 130, 246, 0.15);
   color: #60a5fa;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 5px 14px;
   border-radius: 999px;
   border: 1px solid rgba(96, 165, 250, 0.3);
-  margin-bottom: 12px;
 }
-.achieve-header h2 {
+.funnel-header h2 {
   font-size: 2.2rem;
-  margin: 0 0 10px 0;
+  margin: 12px 0 8px 0;
   font-weight: 800;
-  color: #ffffff;
 }
-.achieve-header p {
-  font-size: 1.05rem;
+.funnel-header p {
   color: #94a3b8;
-  max-width: 600px;
-  margin: 0 auto;
-}
-.secret-banner {
-  margin-top: 18px;
-  display: inline-block;
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  color: #34d399;
-  font-size: 0.88rem;
-  padding: 8px 18px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
-/* Two Columns */
-.dual-columns {
+/* Dual Column Grid: Left = Seller, Right = Buyer on Desktop */
+.funnel-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
+
+/* Mobile Responsive Stacking: Seller First, Buyer Second */
 @media (max-width: 860px) {
-  .dual-columns {
-    grid-template-columns: 1fr;
+  .funnel-grid { 
+    grid-template-columns: 1fr; 
+  }
+  .seller-card {
+    order: 1; /* House symbol & seller flow stacked on top */
+  }
+  .buyer-card {
+    order: 2; /* Dollar key symbol & buyer flow stacked below */
   }
 }
 
-.column-card {
+.funnel-card {
   background: #1e293b;
   border-radius: 16px;
-  padding: 30px 25px;
+  padding: 28px;
   border: 1px solid #334155;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  gap: 20px;
 }
-
-.col-header {
+.card-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
 }
-.col-header h3 {
+.card-head h3 {
   margin: 0;
-  font-size: 1.35rem;
-  font-weight: 700;
+  font-size: 1.3rem;
 }
-.pct-tag {
+.pct-pill {
   font-size: 0.85rem;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 6px;
   background: #0f172a;
 }
-.seller-col .pct-tag { color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
-.buyer-col .pct-tag { color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+.seller-card .pct-pill { color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+.buyer-card .pct-pill { color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
 
-/* Visual Containers */
-.visual-box {
+/* SVG Visual Box */
+.icon-trigger {
+  background: #0f172a;
+  border: 1px dashed #475569;
+  border-radius: 12px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background: #0f172a;
-  border-radius: 12px;
-  border: 1px dashed #475569;
   cursor: pointer;
   transition: transform 0.2s, border-color 0.2s;
   user-select: none;
 }
-.visual-box:hover {
+.icon-trigger:hover {
   transform: translateY(-2px);
   border-color: #94a3b8;
 }
-.svg-container {
-  width: 120px;
-  height: 120px;
+.svg-wrap {
+  width: 100px;
+  height: 100px;
 }
-.milestone-svg {
+.svg-wrap svg {
   width: 100%;
   height: 100%;
   overflow: visible;
 }
-.svg-bg {
-  fill: #334155;
-}
-.svg-stroke {
-  fill: none;
-  stroke: #64748b;
-  stroke-width: 2;
-}
-.svg-accent-stroke {
-  fill: none;
-  stroke: #475569;
-  stroke-width: 1.5;
-}
-.tap-hint {
+.svg-empty { fill: #334155; }
+.svg-border { fill: none; stroke: #64748b; stroke-width: 2; }
+.svg-detail { fill: none; stroke: #475569; stroke-width: 1.5; }
+.hint-lbl {
   font-size: 0.72rem;
   color: #64748b;
-  margin-top: 10px;
-  letter-spacing: 0.03em;
+  margin-top: 8px;
   text-transform: uppercase;
 }
 
-/* Checklist Items */
-.checklist {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin: 25px 0;
-  flex-grow: 1;
-}
-.step-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  background: rgba(15, 23, 42, 0.5);
-  padding: 12px;
-  border-radius: 8px;
+/* Step Boxes & Locked State */
+.step-box {
+  background: rgba(15, 23, 42, 0.6);
+  padding: 18px;
+  border-radius: 10px;
   border: 1px solid #334155;
-  cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
 }
-.step-item:hover {
-  background: rgba(15, 23, 42, 0.9);
+.step-box.locked {
+  opacity: 0.3;
+  pointer-events: none;
+  filter: grayscale(1);
 }
-.step-item input {
-  display: none;
-}
-.custom-chk {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  border: 2px solid #64748b;
-  display: inline-block;
-  flex-shrink: 0;
-  margin-top: 2px;
-  position: relative;
-  transition: all 0.2s;
-}
-.step-item input:checked + .custom-chk {
-  background: #3b82f6;
-  border-color: #3b82f6;
-}
-.seller-col .step-item input:checked + .custom-chk {
-  background: #f59e0b;
-  border-color: #f59e0b;
-}
-.buyer-col .step-item input:checked + .custom-chk {
-  background: #10b981;
-  border-color: #10b981;
-}
-.step-item input:checked + .custom-chk:after {
-  content: '✓';
-  position: absolute;
-  top: -2px;
-  left: 3px;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 900;
-}
-.step-txt strong {
+.step-title {
   display: block;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 12px;
   color: #e2e8f0;
 }
-.step-txt small {
+.sub-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* Inputs & Mini Buttons */
+.input-action-row {
+  display: flex;
+  gap: 8px;
+}
+.mini-btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+.confirmed-msg {
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 6px;
+  color: #38bdf8;
+  min-height: 18px;
+}
+
+.form-in {
+  width: 100%;
+  box-sizing: border-box;
+  background: #0f172a;
+  border: 1px solid #475569;
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+.input-action-row .form-in {
+  margin-bottom: 0;
+}
+.form-in:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+/* Chip Buttons */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: #cbd5e1;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.chip:hover {
+  background: #334155;
+  color: #fff;
+}
+.chip.active {
+  color: #fff;
+  font-weight: 700;
+  background: #d97706;
+  border-color: #f59e0b;
+}
+
+/* Buyer Vertical Chip Rows */
+.chip-group-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.chip-row {
+  background: #1e293b;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 10px 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.chip-row:hover {
+  background: #334155;
+  border-color: #64748b;
+}
+.chip-row.active {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+}
+.chip-row strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #f8fafc;
+}
+.chip-row small {
   display: block;
   font-size: 0.78rem;
   color: #94a3b8;
   margin-top: 2px;
 }
 
-/* Action CTA Buttons */
-.action-btn {
-  display: block;
-  text-align: center;
-  padding: 13px;
-  border-radius: 8px;
+/* CTAs */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
   font-weight: 700;
   font-size: 0.95rem;
-  text-decoration: none;
-  transition: opacity 0.2s, transform 0.2s;
+  cursor: pointer;
+  transition: opacity 0.2s;
 }
-.action-btn:hover {
-  opacity: 0.92;
-  transform: translateY(-1px);
-}
-.seller-btn {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #ffffff;
-}
-.buyer-btn {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: #ffffff;
-}
+.submit-btn:hover { opacity: 0.9; }
+.gold-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+.green-btn { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
 </style>
 
-<!-- ================= JAVASCRIPT ================= -->
+<!-- ================= JAVASCRIPT LOGIC ================= -->
 <script>
-// Base state: 5% already given for being on site
-const state = {
-  seller: { base: 5, clicked: false, stepsTotal: 0 },
-  buyer:  { base: 5, clicked: false, stepsTotal: 0 }
+const funnelState = {
+  seller: { 
+    base: 5, 
+    bonus: 0, 
+    tier3: 0, 
+    tier4: 0, 
+    tier5: 0, 
+    address: '', 
+    timeline: '', 
+    desiredPrice: '' 
+  },
+  buyer: { 
+    base: 5, 
+    bonus: 0, 
+    tier3: 0, 
+    tier4: 0, 
+    tier5: 0, 
+    address: '', 
+    financingMethod: '' 
+  }
 };
 
-// Handle checking/unchecking roadmap items
-function updateProgress(side) {
-  const container = document.getElementById(`${side}-list`);
-  const checkboxes = container.querySelectorAll('input[type="checkbox"]');
-  
-  let checkedSum = 0;
-  checkboxes.forEach(cb => {
-    if (cb.checked) checkedSum += parseFloat(cb.getAttribute('data-val'));
-  });
+// Tier 2 (+5%): Icon Tap
+function unlockBonus(side) {
+  if (funnelState[side].bonus === 0) {
+    funnelState[side].bonus = 5;
+    const hint = document.getElementById(`${side}-hint`);
+    hint.textContent = "✨ +5% Explorer Bonus Unlocked!";
+    hint.style.color = "#38bdf8";
+    renderProgress(side);
+  }
+}
 
-  state[side].stepsTotal = checkedSum;
+// Tier 3 (+20%): Address / Target Property Confirmation
+function confirmAddress(side) {
+  const input = document.getElementById(`${side}-address`);
+  const status = document.getElementById(`${side}-addr-status`);
+  const val = input.value.trim();
+
+  if (val.length < 4) {
+    status.style.color = "#ef4444";
+    status.textContent = "Please enter a valid address or area.";
+    return;
+  }
+
+  funnelState[side].address = val;
+  funnelState[side].tier3 = 20;
+
+  status.style.color = "#34d399";
+  status.textContent = `✓ Confirmed: "${val}"`;
+  
+  document.getElementById(`${side}-tier-4`).classList.remove('locked');
   renderProgress(side);
 }
 
-// Render the graphical fill & percentage tag
+// Seller Tier 4: Timeline Selection Chip
+function selectSellerTimeline(btn, choice) {
+  const group = btn.closest('.chip-group');
+  group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  funnelState.seller.timeline = choice;
+}
+
+// Seller Tier 4: Lock In Timeline or Desired Price (+35%)
+function confirmSellerTier4() {
+  const priceInput = document.getElementById('seller-desired-price').value.trim();
+  const status = document.getElementById('seller-tier4-status');
+
+  if (!funnelState.seller.timeline && !priceInput) {
+    status.style.color = "#ef4444";
+    status.textContent = "Please select a timeline or enter your desired price.";
+    return;
+  }
+
+  funnelState.seller.desiredPrice = priceInput || "Not specified";
+  funnelState.seller.tier4 = 35;
+
+  status.style.color = "#34d399";
+  const summary = [
+    funnelState.seller.timeline ? `Timeline: ${funnelState.seller.timeline}` : '',
+    priceInput ? `Target: ${priceInput}` : ''
+  ].filter(Boolean).join(' | ');
+
+  status.textContent = `✓ Saved: ${summary}`;
+
+  document.getElementById('seller-tier-5').classList.remove('locked');
+  renderProgress('seller');
+}
+
+// Buyer Tier 4: Financing Method Selection (+35%)
+function selectBuyerFinancing(btn, method) {
+  const group = btn.closest('.chip-group-vertical');
+  group.querySelectorAll('.chip-row').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+
+  funnelState.buyer.financingMethod = method;
+  funnelState.buyer.tier4 = 35;
+
+  const status = document.getElementById('buyer-tier4-status');
+  status.style.color = "#34d399";
+  status.textContent = `✓ Selected: ${method}`;
+
+  document.getElementById('buyer-tier-5').classList.remove('locked');
+  renderProgress('buyer');
+}
+
+// Tier 5 (+35% -> 100%): Final Form Submission
+function handleFinalSubmit(e, side) {
+  e.preventDefault();
+  funnelState[side].tier5 = 35;
+  renderProgress(side);
+
+  const name = document.getElementById(`${side}-name`).value;
+  const phone = document.getElementById(`${side}-phone`).value;
+  const email = document.getElementById(`${side}-email`).value;
+
+  const leadPayload = {
+    role: side === 'seller' ? 'Home Seller' : 'Buyer/Investor',
+    confirmedProperty: funnelState[side].address,
+    criteria: side === 'seller' ? {
+      timeline: funnelState.seller.timeline || 'Not specified',
+      desiredPrice: funnelState.seller.desiredPrice || 'Not specified'
+    } : {
+      financingMethod: funnelState.buyer.financingMethod
+    },
+    clientName: name,
+    clientPhone: phone,
+    clientEmail: email
+  };
+
+  console.log("New Real Estate Lead Captured:", leadPayload);
+
+  const tier5Box = document.getElementById(`${side}-tier-5`);
+  tier5Box.innerHTML = `
+    <div style="text-align:center; padding: 15px 5px;">
+      <div style="font-size: 2.2rem; margin-bottom: 6px;">🎉</div>
+      <h4 style="color:#fff; margin:0 0 6px 0; font-size:1.15rem;">100% Complete!</h4>
+      <p style="color:#94a3b8; font-size:0.85rem; margin:0;">
+        Details for <strong>${funnelState[side].address}</strong> received. Anthony Tran will prepare your customized blueprint.
+      </p>
+    </div>
+  `;
+}
+
+// Progress Engine
 function renderProgress(side) {
-  const bonus = state[side].clicked ? 5 : 0;
-  let total = state[side].base + bonus + state[side].stepsTotal;
+  const st = funnelState[side];
+  let total = st.base + st.bonus + st.tier3 + st.tier4 + st.tier5;
   if (total > 100) total = 100;
 
-  // Update tag
-  document.getElementById(`${side}-pct-tag`).textContent = `${Math.round(total)}% Complete`;
+  document.getElementById(`${side}-pill`).textContent = `${total}% Unlocked`;
 
-  // Update SVG liquid fill (y goes from 100 down to 0)
-  const fillElement = document.getElementById(`${side}-fill`);
-  const targetY = 100 - total;
-  fillElement.setAttribute('y', targetY);
+  const fillRect = document.getElementById(`${side}-fill`);
+  fillRect.setAttribute('y', 100 - total);
 }
 
-// Click-to-award secret +5% on graphic interaction
-function attachIconBonus(side, graphicId) {
-  const el = document.getElementById(graphicId);
-  el.addEventListener('click', () => {
-    if (!state[side].clicked) {
-      state[side].clicked = true;
-      el.querySelector('.tap-hint').textContent = '✨ Secret +5% Unlocked!';
-      el.querySelector('.tap-hint').style.color = '#38bdf8';
-      renderProgress(side);
-    }
-  });
-}
-
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
-  attachIconBonus('seller', 'seller-graphic');
-  attachIconBonus('buyer', 'buyer-graphic');
   renderProgress('seller');
   renderProgress('buyer');
 });
