@@ -390,6 +390,13 @@
             font-weight: 500;
         }
 
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
         .input-action-row {
             display: flex;
             gap: 8px;
@@ -403,6 +410,34 @@
             cursor: pointer;
             font-size: 0.85rem;
             white-space: nowrap;
+        }
+
+        .toggle-text-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            font-size: 0.82rem;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0;
+            margin-top: 6px;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .toggle-text-btn:hover {
+            color: var(--primary-hover);
+        }
+
+        .disclaimer-box {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: rgba(15, 23, 42, 0.8);
+            border-left: 2px solid var(--gold-primary);
+            padding: 6px 10px;
+            border-radius: 4px;
+            margin-top: 8px;
+            line-height: 1.4;
         }
 
         .confirmed-msg {
@@ -879,7 +914,7 @@
 
         <div class="funnel-grid">
             
-            <!-- ================= SELLER COLUMN (Left on desktop, 1st on mobile) ================= -->
+            <!-- ================= SELLER COLUMN ================= -->
             <div class="funnel-card seller-card" id="seller-card">
                 <div class="card-head">
                     <h3>Home Seller Blueprint</h3>
@@ -908,13 +943,22 @@
                     <span class="hint-lbl" id="seller-hint">Tap house to unlock +5% bonus</span>
                 </div>
 
-                <!-- Tier 3: Address Confirmation (+20%) -->
+                <!-- Tier 3: Seller Property Details & Address (+20%) -->
                 <div class="step-box" id="seller-tier-3">
-                    <label class="step-title">1. Confirm Property Address (+20%)</label>
-                    <div class="input-action-row">
-                        <input type="text" id="seller-address" placeholder="e.g. 1234 Main St, San Jose, CA" class="form-in">
-                        <button type="button" class="mini-btn gold-btn" onclick="confirmAddress('seller')">Confirm</button>
+                    <label class="step-title">1. Confirm Property Details & Address (+20%)</label>
+                    <input type="text" id="seller-address" placeholder="Property Address (e.g. 1234 Main St, San Jose)" class="form-in">
+                    
+                    <div class="form-row-2">
+                        <input type="text" id="seller-rooms" placeholder="Total Rooms (e.g. 5)" class="form-in">
+                        <input type="text" id="seller-beds-baths" placeholder="Beds / Baths (e.g. 3/2)" class="form-in">
                     </div>
+                    <div class="form-row-2">
+                        <input type="text" id="seller-sqft" placeholder="Approx. Sq Ft" class="form-in">
+                        <input type="text" id="seller-parking" placeholder="Parking Spaces (e.g. 2-Car)" class="form-in">
+                    </div>
+                    <input type="text" id="seller-space-rent" placeholder="Current Space Rent (If mobile home, e.g. $1,150/mo)" class="form-in">
+
+                    <button type="button" class="mini-btn gold-btn" style="width: 100%; margin-top: 4px;" onclick="confirmSellerTier3()">Confirm Property Specs</button>
                     <small class="confirmed-msg" id="seller-addr-status"></small>
                 </div>
 
@@ -940,15 +984,18 @@
                 <div class="step-box locked" id="seller-tier-5">
                     <label class="step-title">3. Where should we send your comparative valuation?</label>
                     <form onsubmit="handleFinalSubmit(event, 'seller')">
-                        <input type="text" id="seller-name" placeholder="Your Name" required class="form-in">
+                        <div class="form-row-2">
+                            <input type="text" id="seller-first-name" placeholder="First Name" required class="form-in">
+                            <input type="text" id="seller-last-name" placeholder="Last Name" required class="form-in">
+                        </div>
                         <input type="tel" id="seller-phone" placeholder="Phone Number" required class="form-in">
                         <input type="email" id="seller-email" placeholder="Email Address" required class="form-in">
-                        <button type="submit" class="submit-btn gold-btn">Unlock 100% & Receive Report</button>
+                        <button type="submit" id="seller-submit-btn" class="submit-btn gold-btn">Unlock 100% & Receive Report</button>
                     </form>
                 </div>
             </div>
 
-            <!-- ================= BUYER COLUMN (Right on desktop, 2nd on mobile) ================= -->
+            <!-- ================= BUYER COLUMN ================= -->
             <div class="funnel-card buyer-card" id="buyer-card">
                 <div class="card-head">
                     <h3>Buyer & Investor Blueprint</h3>
@@ -977,13 +1024,38 @@
                     <span class="hint-lbl" id="buyer-hint">Tap key to unlock +5% bonus</span>
                 </div>
 
-                <!-- Tier 3: Target Property Confirmation (+20%) -->
+                <!-- Tier 3: Target Address or First Access (+20%) -->
                 <div class="step-box" id="buyer-tier-3">
-                    <label class="step-title">1. Confirm Target Property or Area (+20%)</label>
-                    <div class="input-action-row">
-                        <input type="text" id="buyer-address" placeholder="e.g. 567 Willow St, MLS #, or West San Jose" class="form-in">
-                        <button type="button" class="mini-btn green-btn" onclick="confirmAddress('buyer')">Confirm</button>
+                    <label class="step-title">1. Target Property or Priority Search (+20%)</label>
+                    
+                    <!-- Standard Address Input -->
+                    <div id="buyer-addr-mode">
+                        <div class="input-action-row">
+                            <input type="text" id="buyer-address" placeholder="Target Address, MLS #, or City" class="form-in">
+                            <button type="button" class="mini-btn green-btn" onclick="confirmBuyerAddress()">Confirm</button>
+                        </div>
+                        <button type="button" class="toggle-text-btn" onclick="toggleBuyerFirstAccess(true)">
+                            Don't have an address? Get first access of new homes on the market for sale →
+                        </button>
                     </div>
+
+                    <!-- "First Access" Mode (No specific address) -->
+                    <div id="buyer-first-access-mode" style="display: none;">
+                        <span class="sub-label">Get first access of new homes on the market for sale:</span>
+                        <div class="form-row-2">
+                            <input type="text" id="buyer-desired-beds" placeholder="Desired Beds / Baths" class="form-in">
+                            <input type="text" id="buyer-desired-sqft" placeholder="Min. Square Footage" class="form-in">
+                        </div>
+                        <input type="text" id="buyer-desired-rent" placeholder="Desired Monthly Space Rent (e.g. Under $1,200/mo)" class="form-in">
+                        <div class="disclaimer-box">
+                            * Note: Space rent varies by each mobile home park and is subject to change.
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-top: 8px;">
+                            <button type="button" class="mini-btn green-btn" style="flex: 1;" onclick="confirmBuyerFirstAccess()">Confirm Criteria</button>
+                            <button type="button" class="mini-btn" style="background: #334155; color: #fff;" onclick="toggleBuyerFirstAccess(false)">Back to Address</button>
+                        </div>
+                    </div>
+
                     <small class="confirmed-msg" id="buyer-addr-status"></small>
                 </div>
 
@@ -1011,10 +1083,13 @@
                 <div class="step-box locked" id="buyer-tier-5">
                     <label class="step-title">3. Where should we send off-market comps & rates?</label>
                     <form onsubmit="handleFinalSubmit(event, 'buyer')">
-                        <input type="text" id="buyer-name" placeholder="Your Name" required class="form-in">
+                        <div class="form-row-2">
+                            <input type="text" id="buyer-first-name" placeholder="First Name" required class="form-in">
+                            <input type="text" id="buyer-last-name" placeholder="Last Name" required class="form-in">
+                        </div>
                         <input type="tel" id="buyer-phone" placeholder="Phone Number" required class="form-in">
                         <input type="email" id="buyer-email" placeholder="Email Address" required class="form-in">
-                        <button type="submit" class="submit-btn green-btn">Unlock 100% & Get Property Matches</button>
+                        <button type="submit" id="buyer-submit-btn" class="submit-btn green-btn">Unlock 100% & Get Property Matches</button>
                     </form>
                 </div>
             </div>
@@ -1217,8 +1292,17 @@
 <script>
     // State Management for Interactive Roadmap
     const funnelState = {
-        seller: { base: 5, bonus: 0, tier3: 0, tier4: 0, tier5: 0, address: '', timeline: '', desiredPrice: '' },
-        buyer:  { base: 5, bonus: 0, tier3: 0, tier4: 0, tier5: 0, address: '', financingMethod: '' }
+        seller: { 
+            base: 5, bonus: 0, tier3: 0, tier4: 0, tier5: 0, 
+            address: '', rooms: '', bedsBaths: '', sqft: '', parking: '', spaceRent: '',
+            timeline: '', desiredPrice: '' 
+        },
+        buyer: { 
+            base: 5, bonus: 0, tier3: 0, tier4: 0, tier5: 0, 
+            isFirstAccess: false, targetAddress: '',
+            desiredBeds: '', desiredSqft: '', desiredRent: '',
+            financingMethod: '' 
+        }
     };
 
     // Tier 2 (+5%): Icon Tap
@@ -1232,26 +1316,86 @@
         }
     }
 
-    // Tier 3 (+20%): Address / Target Property Confirmation
-    function confirmAddress(side) {
-        const input = document.getElementById(`${side}-address`);
-        const status = document.getElementById(`${side}-addr-status`);
-        const val = input.value.trim();
+    // Seller Tier 3 Confirmation (+20%)
+    function confirmSellerTier3() {
+        const addr = document.getElementById('seller-address').value.trim();
+        const status = document.getElementById('seller-addr-status');
 
-        if (val.length < 4) {
+        if (addr.length < 4) {
             status.style.color = "#ef4444";
-            status.textContent = "Please enter a valid address or area.";
+            status.textContent = "Please provide your property address.";
             return;
         }
 
-        funnelState[side].address = val;
-        funnelState[side].tier3 = 20;
+        funnelState.seller.address = addr;
+        funnelState.seller.rooms = document.getElementById('seller-rooms').value.trim() || 'N/A';
+        funnelState.seller.bedsBaths = document.getElementById('seller-beds-baths').value.trim() || 'N/A';
+        funnelState.seller.sqft = document.getElementById('seller-sqft').value.trim() || 'N/A';
+        funnelState.seller.parking = document.getElementById('seller-parking').value.trim() || 'N/A';
+        funnelState.seller.spaceRent = document.getElementById('seller-space-rent').value.trim() || 'N/A';
+        funnelState.seller.tier3 = 20;
 
         status.style.color = "#34d399";
-        status.textContent = `✓ Confirmed: "${val}"`;
+        status.textContent = `✓ Confirmed: "${addr}" (${funnelState.seller.bedsBaths}, ${funnelState.seller.sqft} sqft)`;
 
-        document.getElementById(`${side}-tier-4`).classList.remove('locked');
-        renderProgress(side);
+        document.getElementById('seller-tier-4').classList.remove('locked');
+        renderProgress('seller');
+    }
+
+    // Buyer Tier 3: Toggle Between Specific Address & First Access
+    function toggleBuyerFirstAccess(isFirstAccess) {
+        document.getElementById('buyer-addr-mode').style.display = isFirstAccess ? 'none' : 'block';
+        document.getElementById('buyer-first-access-mode').style.display = isFirstAccess ? 'block' : 'none';
+        document.getElementById('buyer-addr-status').textContent = '';
+    }
+
+    // Buyer Tier 3: Specific Address Confirmation (+20%)
+    function confirmBuyerAddress() {
+        const input = document.getElementById('buyer-address');
+        const status = document.getElementById('buyer-addr-status');
+        const val = input.value.trim();
+
+        if (val.length < 3) {
+            status.style.color = "#ef4444";
+            status.textContent = "Please enter an address, MLS #, or city.";
+            return;
+        }
+
+        funnelState.buyer.isFirstAccess = false;
+        funnelState.buyer.targetAddress = val;
+        funnelState.buyer.tier3 = 20;
+
+        status.style.color = "#34d399";
+        status.textContent = `✓ Target Confirmed: "${val}"`;
+
+        document.getElementById('buyer-tier-4').classList.remove('locked');
+        renderProgress('buyer');
+    }
+
+    // Buyer Tier 3: First Access Confirmation (+20%)
+    function confirmBuyerFirstAccess() {
+        const beds = document.getElementById('buyer-desired-beds').value.trim();
+        const sqft = document.getElementById('buyer-desired-sqft').value.trim();
+        const rent = document.getElementById('buyer-desired-rent').value.trim();
+        const status = document.getElementById('buyer-addr-status');
+
+        if (!beds && !sqft && !rent) {
+            status.style.color = "#ef4444";
+            status.textContent = "Please enter at least one preference (e.g. Beds/Baths or Space Rent).";
+            return;
+        }
+
+        funnelState.buyer.isFirstAccess = true;
+        funnelState.buyer.desiredBeds = beds || 'Any Beds/Baths';
+        funnelState.buyer.desiredSqft = sqft || 'Any Sqft';
+        funnelState.buyer.desiredRent = rent || 'Standard Market Space Rent';
+        funnelState.buyer.tier3 = 20;
+
+        status.style.color = "#34d399";
+        status.textContent = `✓ Priority Access Enrolled: ${funnelState.buyer.desiredBeds}, Rent Target: ${funnelState.buyer.desiredRent}`;
+
+        document.getElementById('buyer-tier-4').classList.remove('locked');
+        renderProgress('buyer');
     }
 
     // Seller Tier 4: Timeline Selection Chip
@@ -1305,31 +1449,73 @@
         renderProgress('buyer');
     }
 
-    // Tier 5 (+35% -> 100%): Final Form Submission
-    function handleFinalSubmit(e, side) {
+    // Tier 5: Final Submission (Dispatches to AnthonyTranVa@gmail.com)
+    async function handleFinalSubmit(e, side) {
         e.preventDefault();
+        
+        const submitBtn = document.getElementById(`${side}-submit-btn`);
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Transmitting to Anthony Tran...";
+
+        const firstName = document.getElementById(`${side}-first-name`).value.trim();
+        const lastName = document.getElementById(`${side}-last-name`).value.trim();
+        const phone = document.getElementById(`${side}-phone`).value.trim();
+        const email = document.getElementById(`${side}-email`).value.trim();
+
+        // Build Payload
+        let emailMessage = `--- NEW INQUIRY RECEIVED ---\n\n`;
+        emailMessage += `Client: ${firstName} ${lastName}\n`;
+        emailMessage += `Email: ${email}\n`;
+        emailMessage += `Phone: ${phone}\n`;
+        emailMessage += `Role: ${side === 'seller' ? 'Home Seller' : 'Buyer / Investor'}\n\n`;
+
+        if (side === 'seller') {
+            emailMessage += `--- PROPERTY DETAILS ---\n`;
+            emailMessage += `Address: ${funnelState.seller.address}\n`;
+            emailMessage += `Rooms: ${funnelState.seller.rooms}\n`;
+            emailMessage += `Beds/Baths: ${funnelState.seller.bedsBaths}\n`;
+            emailMessage += `Square Footage: ${funnelState.seller.sqft}\n`;
+            emailMessage += `Parking: ${funnelState.seller.parking}\n`;
+            emailMessage += `Current Space Rent: ${funnelState.seller.spaceRent}\n\n`;
+            emailMessage += `--- TIMELINE & PRICING ---\n`;
+            emailMessage += `Timeline: ${funnelState.seller.timeline || 'Not specified'}\n`;
+            emailMessage += `Desired Price: ${funnelState.seller.desiredPrice || 'Not specified'}\n`;
+        } else {
+            emailMessage += `--- BUYER CRITERIA ---\n`;
+            if (funnelState.buyer.isFirstAccess) {
+                emailMessage += `Mode: First Access Priority (No specific address yet)\n`;
+                emailMessage += `Desired Beds/Baths: ${funnelState.buyer.desiredBeds}\n`;
+                emailMessage += `Desired Sqft: ${funnelState.buyer.desiredSqft}\n`;
+                emailMessage += `Desired Monthly Space Rent: ${funnelState.buyer.desiredRent} (Acknowledged space rent varies & subject to change)\n`;
+            } else {
+                emailMessage += `Target Address / Area: ${funnelState.buyer.targetAddress}\n`;
+            }
+            emailMessage += `Financing Method: ${funnelState.buyer.financingMethod}\n`;
+        }
+
+        try {
+            // Dispatches to AnthonyTranVa@gmail.com
+            await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    access_key: '6468a303-34e8-466d-a1ec-96ef89cb13f6', // Public form handler key
+                    to: 'AnthonyTranVa@gmail.com',
+                    from_name: `${firstName} ${lastName} (${side.toUpperCase()})`,
+                    subject: `New ${side === 'seller' ? 'Seller Lead' : 'Buyer Inquiry'}: ${firstName} ${lastName}`,
+                    message: emailMessage
+                })
+            });
+        } catch (err) {
+            console.log("Transmission fallback active:", err);
+        }
+
         funnelState[side].tier5 = 35;
         renderProgress(side);
 
-        const name = document.getElementById(`${side}-name`).value;
-        const phone = document.getElementById(`${side}-phone`).value;
-        const email = document.getElementById(`${side}-email`).value;
-
-        const leadPayload = {
-            role: side === 'seller' ? 'Home Seller' : 'Buyer/Investor',
-            confirmedProperty: funnelState[side].address,
-            criteria: side === 'seller' ? {
-                timeline: funnelState.seller.timeline || 'Not specified',
-                desiredPrice: funnelState.seller.desiredPrice || 'Not specified'
-            } : {
-                financingMethod: funnelState.buyer.financingMethod
-            },
-            clientName: name,
-            clientPhone: phone,
-            clientEmail: email
-        };
-
-        console.log("New Real Estate Lead Captured:", leadPayload);
+        const targetDesc = side === 'seller' 
+            ? funnelState.seller.address 
+            : (funnelState.buyer.isFirstAccess ? 'First Access Priority List' : funnelState.buyer.targetAddress);
 
         const tier5Box = document.getElementById(`${side}-tier-5`);
         tier5Box.innerHTML = `
@@ -1337,13 +1523,13 @@
                 <div style="font-size: 2.2rem; margin-bottom: 6px;">🎉</div>
                 <h4 style="color:#fff; margin:0 0 6px 0; font-size:1.15rem;">100% Complete!</h4>
                 <p style="color:#94a3b8; font-size:0.85rem; margin:0;">
-                    Details for <strong>${funnelState[side].address}</strong> received. Anthony Tran will prepare your customized blueprint.
+                    Your details for <strong>${targetDesc}</strong> have been sent directly to Anthony Tran (AnthonyTranVa@gmail.com). You will be contacted shortly!
                 </p>
             </div>
         `;
     }
 
-    // Visual Update Engine
+    // Visual SVG Fill
     function renderProgress(side) {
         const st = funnelState[side];
         let total = st.base + st.bonus + st.tier3 + st.tier4 + st.tier5;
