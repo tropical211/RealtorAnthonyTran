@@ -478,6 +478,10 @@
             min-height: 60px;
         }
 
+        select.form-in {
+            cursor: pointer;
+        }
+
         .input-action-row .form-in {
             margin-bottom: 0;
         }
@@ -1255,23 +1259,42 @@
                             <button type="button" class="mini-btn green-btn" onclick="confirmBuyerAddress()">Confirm</button>
                         </div>
                         <button type="button" class="toggle-text-btn" onclick="toggleBuyerFirstAccess(true)">
-                            Don't have an address? Get first access of new homes on the market for sale →
+                            Don't have an address? Click here to get early access of new homes on the market →
                         </button>
                     </div>
 
-                    <!-- "First Access" Mode (No specific address) -->
+                    <!-- "First Access" Email Workflow Mode -->
                     <div id="buyer-first-access-mode" style="display: none;">
                         <span class="sub-label">Get first access of new homes on the market for sale:</span>
+                        
+                        <input type="text" id="buyer-desired-city" placeholder="Desired City (e.g. San Jose, Santa Clara, Sunnyvale)" class="form-in">
+                        
                         <div class="form-row-2">
-                            <input type="text" id="buyer-desired-beds" placeholder="Desired Beds / Baths" class="form-in">
-                            <input type="text" id="buyer-desired-sqft" placeholder="Min. Square Footage" class="form-in">
+                            <input type="text" id="buyer-desired-beds" placeholder="Number of Beds (e.g. 3)" class="form-in">
+                            <input type="text" id="buyer-desired-baths" placeholder="Number of Baths (e.g. 2)" class="form-in">
                         </div>
-                        <input type="text" id="buyer-desired-rent" placeholder="Desired Space Rent ($0.00)" class="form-in currency-field" onblur="formatCurrencyInput(this)">
+
+                        <div class="form-row-2">
+                            <input type="text" id="buyer-desired-sqft" placeholder="Square Footage (e.g. 1,200)" class="form-in">
+                            <input type="text" id="buyer-desired-price-limit" placeholder="Purchase Price Limit ($0.00)" class="form-in currency-field" onblur="formatCurrencyInput(this)">
+                        </div>
+
+                        <input type="text" id="buyer-desired-rent" placeholder="Space Rent Desired ($0.00)" class="form-in currency-field" onblur="formatCurrencyInput(this)">
+                        
+                        <select id="buyer-financing-type" class="form-in">
+                            <option value="" disabled selected>Financing / Cash Purchase...</option>
+                            <option value="All-Cash Purchase">All-Cash Purchase</option>
+                            <option value="Conventional Mortgage">Conventional Mortgage</option>
+                            <option value="Chattel / Mobile Home Financing">Chattel / Mobile Home Financing</option>
+                            <option value="Need Financing Guidance">Need Financing Guidance</option>
+                        </select>
+
                         <div class="disclaimer-box">
                             * Note: Space rent varies by each mobile home park and is subject to change.
                         </div>
-                        <div style="display: flex; gap: 8px; margin-top: 8px;">
-                            <button type="button" class="mini-btn green-btn" style="flex: 1;" onclick="confirmBuyerFirstAccess()">Confirm Criteria</button>
+
+                        <div style="display: flex; gap: 8px; margin-top: 10px;">
+                            <button type="button" class="mini-btn green-btn" style="flex: 1;" onclick="triggerDirectEmailEarlyAccess()">📧 Send Criteria Directly via Email</button>
                             <button type="button" class="mini-btn" style="background: #334155; color: #fff;" onclick="toggleBuyerFirstAccess(false)">Back to Address</button>
                         </div>
                     </div>
@@ -1563,7 +1586,7 @@
         }
     }
 
-    // Address Verification Helper (Validates parcel format & generates quick maps links)
+    // Address Verification Helper
     function validateRealAddress(addr) {
         const trimmed = addr.trim();
         const hasNumberAndStreet = /\d+\s+[A-Za-z0-9\s.]+/.test(trimmed);
@@ -1573,7 +1596,7 @@
         };
     }
 
-    // State Management for Interactive Roadmap
+    // State Management
     const funnelState = {
         seller: { 
             base: 5, bonus: 0, tier3: 0, tier4: 0, tier5: 0, 
@@ -1583,7 +1606,8 @@
         buyer: { 
             base: 5, bonus: 0, tier3: 0, tier4: 0, tier5: 0, 
             isFirstAccess: false, targetAddress: '',
-            desiredBeds: '', desiredSqft: '', desiredRent: '',
+            desiredCity: '', desiredBeds: '', desiredBaths: '', desiredSqft: '', 
+            desiredRent: '', priceLimit: '', financingType: '',
             financingMethod: '' 
         }
     };
@@ -1633,7 +1657,7 @@
         renderProgress('seller');
     }
 
-    // Buyer Tier 3: Toggle Between Specific Address & First Access
+    // Buyer Tier 3: Toggle Modes
     function toggleBuyerFirstAccess(isFirstAccess) {
         document.getElementById('buyer-addr-mode').style.display = isFirstAccess ? 'none' : 'block';
         document.getElementById('buyer-first-access-mode').style.display = isFirstAccess ? 'block' : 'none';
@@ -1670,27 +1694,53 @@
         renderProgress('buyer');
     }
 
-    // Buyer Tier 3: First Access Confirmation (+20%)
-    function confirmBuyerFirstAccess() {
+    // Buyer Tier 3: Direct Email Action for Early Access (+20% and launch mailto)
+    function triggerDirectEmailEarlyAccess() {
+        const city = document.getElementById('buyer-desired-city').value.trim();
         const beds = document.getElementById('buyer-desired-beds').value.trim();
+        const baths = document.getElementById('buyer-desired-baths').value.trim();
         const sqft = document.getElementById('buyer-desired-sqft').value.trim();
+        const priceLimit = document.getElementById('buyer-desired-price-limit').value.trim();
         const rent = document.getElementById('buyer-desired-rent').value.trim();
+        const financing = document.getElementById('buyer-financing-type').value;
         const status = document.getElementById('buyer-addr-status');
 
-        if (!beds && !sqft && !rent) {
+        if (!city && !beds && !priceLimit) {
             status.style.color = "#ef4444";
-            status.innerHTML = "Please enter at least one target preference (e.g. Beds/Baths or Space Rent).";
+            status.innerHTML = "⚠️ Please provide at least your desired city, beds, or price limit.";
             return;
         }
 
         funnelState.buyer.isFirstAccess = true;
-        funnelState.buyer.desiredBeds = beds || 'Any Beds/Baths';
-        funnelState.buyer.desiredSqft = sqft || 'Any Sqft';
-        funnelState.buyer.desiredRent = rent || 'Standard Market Space Rent';
+        funnelState.buyer.desiredCity = city || 'Any Bay Area City';
+        funnelState.buyer.desiredBeds = beds || 'Flexible';
+        funnelState.buyer.desiredBaths = baths || 'Flexible';
+        funnelState.buyer.desiredSqft = sqft || 'Flexible';
+        funnelState.buyer.priceLimit = priceLimit || 'Flexible';
+        funnelState.buyer.desiredRent = rent || 'Standard Market';
+        funnelState.buyer.financingType = financing || 'Flexible';
         funnelState.buyer.tier3 = 20;
 
+        // Build Direct Mailto Body
+        const emailSubject = encodeURIComponent("First Access Priority Search Request - Anthony Tran");
+        const emailBody = encodeURIComponent(
+            `Hi Anthony,\n\n` +
+            `I would like to get first access to upcoming properties matching my criteria:\n\n` +
+            `• Desired City: ${funnelState.buyer.desiredCity}\n` +
+            `• Number of Beds: ${funnelState.buyer.desiredBeds}\n` +
+            `• Number of Baths: ${funnelState.buyer.desiredBaths}\n` +
+            `• Desired Square Footage: ${funnelState.buyer.desiredSqft}\n` +
+            `• Purchase Price Limit: ${funnelState.buyer.priceLimit}\n` +
+            `• Desired Space Rent: ${funnelState.buyer.desiredRent} (Acknowledged space rent varies by park)\n` +
+            `• Financing / Cash: ${funnelState.buyer.financingType}\n\n` +
+            `Looking forward to connecting with you!\n`
+        );
+
+        // Open user's default email client addressed directly to AnthonyTranVa@gmail.com
+        window.location.href = `mailto:AnthonyTranVa@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+
         status.style.color = "#34d399";
-        status.innerHTML = `✓ Priority Access Enrolled: ${funnelState.buyer.desiredBeds}, Rent Target: ${funnelState.buyer.desiredRent}`;
+        status.innerHTML = `✓ Email client opened! Priority search criteria locked in for <strong>${funnelState.buyer.desiredCity}</strong>.`;
 
         document.getElementById('buyer-tier-4').classList.remove('locked');
         renderProgress('buyer');
@@ -1747,7 +1797,7 @@
         renderProgress('buyer');
     }
 
-    // Modal Control Functions
+    // Modal Popup Logic
     function showCelebrationModal(side) {
         const modal = document.getElementById('celebration-modal');
         const title = document.getElementById('modal-title');
@@ -1793,13 +1843,11 @@
         const email = document.getElementById(`${side}-email`).value.trim();
         const phone = document.getElementById(`${side}-phone`).value.trim();
         
-        // Grab selected radio bubble
         const selectedBubble = document.querySelector(`input[name="${side}-pref-comm"]:checked`);
         const prefComm = selectedBubble ? selectedBubble.value : 'Not Specified';
 
         const comments = document.getElementById(`${side}-comments`).value.trim() || 'None provided';
 
-        // Prepare Structured Payload for FormSubmit
         const payload = {
             _subject: `New ${side === 'seller' ? 'Seller Lead' : 'Buyer Inquiry'}: ${firstName} ${lastName}`,
             Client_Legal_Name: `${firstName} ${lastName}`,
@@ -1821,10 +1869,14 @@
             payload.Seller_Notes_And_Upgrades = comments;
         } else {
             if (funnelState.buyer.isFirstAccess) {
-                payload.Buyer_Mode = "First Access Priority List (No specific address yet)";
-                payload.Desired_Beds_Baths = funnelState.buyer.desiredBeds;
+                payload.Buyer_Mode = "First Access Priority List (Direct Email Criteria)";
+                payload.Desired_City = funnelState.buyer.desiredCity;
+                payload.Desired_Beds = funnelState.buyer.desiredBeds;
+                payload.Desired_Baths = funnelState.buyer.desiredBaths;
                 payload.Desired_Square_Footage = funnelState.buyer.desiredSqft;
+                payload.Purchase_Price_Limit = funnelState.buyer.priceLimit;
                 payload.Desired_Monthly_Space_Rent = funnelState.buyer.desiredRent;
+                payload.Financing_Type = funnelState.buyer.financingType;
             } else {
                 payload.Target_Property_Address = funnelState.buyer.targetAddress;
             }
@@ -1848,12 +1900,11 @@
         funnelState[side].tier5 = 35;
         renderProgress(side);
 
-        // Trigger the celebration popup immediately
         showCelebrationModal(side);
 
         const targetDesc = side === 'seller' 
             ? funnelState.seller.address 
-            : (funnelState.buyer.isFirstAccess ? 'First Access Priority' : funnelState.buyer.targetAddress);
+            : (funnelState.buyer.isFirstAccess ? `First Access in ${funnelState.buyer.desiredCity}` : funnelState.buyer.targetAddress);
 
         const tier5Box = document.getElementById(`${side}-tier-5`);
         tier5Box.innerHTML = `
