@@ -307,6 +307,7 @@
             padding: 4px 10px;
             border-radius: 6px;
             background: var(--card-inner);
+            transition: all 0.3s ease;
         }
 
         .seller-card .pct-pill {
@@ -319,6 +320,20 @@
             border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
+        .pct-pill.celebration-badge {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: #ffffff !important;
+            border: 1px solid #c084fc !important;
+            box-shadow: 0 0 15px rgba(192, 132, 252, 0.4);
+            animation: pulseBadge 1.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseBadge {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        /* Interactive Symbol Box */
         .icon-trigger {
             background: var(--card-inner);
             border: 1px dashed var(--border);
@@ -330,6 +345,8 @@
             cursor: pointer;
             transition: transform 0.2s, border-color 0.2s;
             user-select: none;
+            position: relative;
+            overflow: visible;
         }
 
         .icon-trigger:hover {
@@ -340,6 +357,9 @@
         .svg-wrap {
             width: 90px;
             height: 90px;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .svg-wrap svg {
@@ -358,6 +378,45 @@
             margin-top: 8px;
             text-transform: uppercase;
             font-weight: 600;
+        }
+
+        /* New Year's Firework & Celebration Animation */
+        .icon-trigger.celebrating {
+            border-color: #f59e0b !important;
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .icon-trigger.celebrating .svg-wrap {
+            animation: newYearsPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate;
+        }
+
+        @keyframes newYearsPop {
+            0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 4px #fbbf24); }
+            50% { transform: scale(1.12) rotate(-3deg); filter: drop-shadow(0 0 18px #f59e0b); }
+            100% { transform: scale(1.08) rotate(3deg); filter: drop-shadow(0 0 22px #ec4899); }
+        }
+
+        .firework-spark {
+            position: absolute;
+            font-size: 1.25rem;
+            pointer-events: none;
+            z-index: 10;
+            animation: fireworkBurst 1.8s ease-out forwards;
+        }
+
+        @keyframes fireworkBurst {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0.4);
+            }
+            70% {
+                opacity: 1;
+                transform: translate(var(--tx), var(--ty)) scale(1.3) rotate(var(--rot));
+            }
+            100% {
+                opacity: 0;
+                transform: translate(calc(var(--tx) * 1.2), calc(var(--ty) * 1.2 + 20px)) scale(0.8) rotate(var(--rot));
+            }
         }
 
         .step-box {
@@ -1214,7 +1273,7 @@
 
                         <textarea id="seller-comments" placeholder="Additional Notes or Property Features (Upgrades, solar, park rules, etc.)..." class="form-in" rows="3"></textarea>
 
-                        <button type="submit" id="seller-submit-btn" class="submit-btn gold-btn">Unlock 100% & Receive Report</button>
+                        <button type="submit" id="seller-submit-btn" class="submit-btn gold-btn">Complete First Step & Receive Report</button>
                     </form>
                 </div>
             </div>
@@ -1351,7 +1410,7 @@
 
                         <textarea id="buyer-comments" placeholder="Paste link of home interested in (Redfin, Zillow, MLS) or custom comments..." class="form-in" rows="3"></textarea>
 
-                        <button type="submit" id="buyer-submit-btn" class="submit-btn green-btn">Unlock 100% & Get Property Matches</button>
+                        <button type="submit" id="buyer-submit-btn" class="submit-btn green-btn">Complete First Step & Get Property Matches</button>
                     </form>
                 </div>
             </div>
@@ -1623,6 +1682,38 @@
         }
     }
 
+    // New Year's Firework Spark Creator
+    function launchCelebrationEffect(side) {
+        const triggerBox = document.getElementById(`${side}-icon-box`);
+        triggerBox.classList.add('celebrating');
+
+        const sparks = ['🎆', '✨', '⭐', '🎉', '🌟', '💥', '🍾'];
+        for (let i = 0; i < 18; i++) {
+            const spark = document.createElement('span');
+            spark.className = 'firework-spark';
+            spark.textContent = sparks[Math.floor(Math.random() * sparks.length)];
+
+            // Random 360 degree explosion trajectory
+            const angle = Math.random() * Math.PI * 2;
+            const dist = 45 + Math.random() * 65;
+            const tx = Math.cos(angle) * dist + 'px';
+            const ty = Math.sin(angle) * dist + 'px';
+            const rot = (Math.random() * 360) + 'deg';
+
+            spark.style.setProperty('--tx', tx);
+            spark.style.setProperty('--ty', ty);
+            spark.style.setProperty('--rot', rot);
+            spark.style.left = '45%';
+            spark.style.top = '40%';
+
+            triggerBox.appendChild(spark);
+
+            setTimeout(() => {
+                spark.remove();
+            }, 1800);
+        }
+    }
+
     // Seller Tier 3 Confirmation (+20%)
     function confirmSellerTier3() {
         const rawAddr = document.getElementById('seller-address').value;
@@ -1736,7 +1827,7 @@
             `Looking forward to connecting with you!\n`
         );
 
-        // Open user's default email client addressed directly to AnthonyTranVa@gmail.com
+        // Open email client addressed directly to AnthonyTranVa@gmail.com
         window.location.href = `mailto:AnthonyTranVa@gmail.com?subject=${emailSubject}&body=${emailBody}`;
 
         status.style.color = "#34d399";
@@ -1900,6 +1991,10 @@
         funnelState[side].tier5 = 35;
         renderProgress(side);
 
+        // Trigger New Year's Firework Spark Effect on the Graphic
+        launchCelebrationEffect(side);
+
+        // Trigger Celebration Modal
         showCelebrationModal(side);
 
         const targetDesc = side === 'seller' 
@@ -1910,7 +2005,7 @@
         tier5Box.innerHTML = `
             <div style="text-align:center; padding: 15px 5px;">
                 <div style="font-size: 2.2rem; margin-bottom: 6px;">🎉</div>
-                <h4 style="color:#fff; margin:0 0 6px 0; font-size:1.15rem;">100% Unlocked & Transmitted!</h4>
+                <h4 style="color:#fff; margin:0 0 6px 0; font-size:1.15rem;">First Step is Complete!</h4>
                 <p style="color:#94a3b8; font-size:0.85rem; margin:0;">
                     Thank you, <strong>${firstName}</strong>. Your details for <strong>${targetDesc}</strong> have been submitted to Anthony Tran (AnthonyTranVa@gmail.com). You will be contacted via <strong>${prefComm}</strong> within 24 hours!
                 </p>
@@ -1918,13 +2013,20 @@
         `;
     }
 
-    // Visual SVG Fill
+    // Visual SVG Fill & Status Tag Engine
     function renderProgress(side) {
         const st = funnelState[side];
         let total = st.base + st.bonus + st.tier3 + st.tier4 + st.tier5;
         if (total > 100) total = 100;
 
-        document.getElementById(`${side}-pill`).textContent = `${total}% Unlocked`;
+        const pill = document.getElementById(`${side}-pill`);
+        if (total >= 100) {
+            pill.textContent = "🎉 First step is complete!";
+            pill.classList.add('celebration-badge');
+        } else {
+            pill.textContent = `${total}% Unlocked`;
+            pill.classList.remove('celebration-badge');
+        }
 
         const fillRect = document.getElementById(`${side}-fill`);
         fillRect.setAttribute('y', 100 - total);
