@@ -1,823 +1,495 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anthony Tran | Silicon Valley & Bay Area Real Estate Specialist</title>
-    <style>
-        :root {
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --card-inner: #0f172a;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --primary: #38bdf8;
-            --primary-hover: #0284c7;
-            --accent: #34d399;
-            --border: #334155;
-            --tag-bg: #1e293b;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 2.5rem 1rem;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            padding: 3rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border);
-        }
-
-        header {
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .profile-pic {
-            width: 145px;
-            height: 145px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            transition: transform 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .profile-pic:hover {
-            transform: scale(1.03);
-        }
-
-        .header-text {
-            flex: 1;
-        }
-
-        h1 {
-            font-size: 2.3rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text-main);
-            margin-bottom: 0.25rem;
-        }
-
-        .license {
-            font-size: 1.05rem;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .contact-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.25rem;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-
-        .contact-links a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .contact-links a:hover {
-            color: var(--primary-hover);
-            text-decoration: underline;
-        }
-
-        /* MLS Hero Search Banner */
-        .mls-hero-container {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 2.75rem;
-            border: 1px solid var(--border);
-            background-image: linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1400&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 3.5rem 1.5rem;
-            text-align: center;
-        }
-
-        .mls-hero-title {
-            font-size: 2.1rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-        }
-
-        .mls-hero-title em {
-            font-style: italic;
-            font-family: Georgia, serif;
-            font-weight: 400;
-        }
-
-        .mls-search-wrapper {
-            max-width: 680px;
-            margin: 0 auto;
-        }
-
-        .search-tabs {
-            display: flex;
-            justify-content: center;
-            background: rgba(15, 23, 42, 0.85);
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-        }
-
-        .search-tab-btn {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            padding: 0.75rem 1rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            position: relative;
-            transition: background 0.2s ease, color 0.2s ease;
-        }
-
-        .search-tab-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .search-tab-btn.active {
-            color: #ffffff;
-        }
-
-        .search-tab-btn.active::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background-color: #f59e0b;
-        }
-
-        .mls-input-group {
-            display: flex;
-            background: #ffffff;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        .mls-input-group input {
-            flex: 1;
-            border: none;
-            padding: 0.9rem 1.25rem;
-            font-size: 1.05rem;
-            color: #1e293b;
-            outline: none;
-        }
-
-        .mls-input-group button {
-            background: #0077c8;
-            color: #ffffff;
-            border: none;
-            padding: 0 1.75rem;
-            font-size: 1rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .mls-input-group button:hover {
-            background: #005a96;
-        }
-
-        section {
-            margin-bottom: 2.75rem;
-        }
-
-        h2 {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--primary);
-            margin-bottom: 1.25rem;
-            border-left: 3px solid var(--primary);
-            padding-left: 0.75rem;
-        }
-
-        .lead-text {
-            color: var(--text-main);
-            font-size: 1.1rem;
-            font-weight: 500;
-            line-height: 1.7;
-            margin-bottom: 1rem;
-        }
-
-        .summary-text {
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .disclaimer-text {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-style: italic;
-            margin-bottom: 1.5rem;
-        }
-
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .stat-box {
-            background: var(--card-inner);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.25rem;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-label {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Case Study / Embedded Video Box */
-        .case-study-card {
-            background: var(--card-inner);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.75rem;
-        }
-
-        .case-study-card h3 {
-            font-size: 1.25rem;
-            color: var(--text-main);
-            margin-bottom: 0.75rem;
-            line-height: 1.4;
-        }
-
-        .case-study-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border);
-            margin-bottom: 1rem;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .video-fallback-link {
-            display: inline-block;
-            color: var(--primary);
-            font-size: 0.9rem;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .video-fallback-link:hover {
-            text-decoration: underline;
-            color: var(--primary-hover);
-        }
-
-        .value-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .value-card {
-            background: var(--card-inner);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.75rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .value-card h3 {
-            font-size: 1.25rem;
-            color: var(--text-main);
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .value-card.buyer h3 {
-            color: var(--primary);
-        }
-
-        .value-card.seller h3 {
-            color: var(--accent);
-        }
-
-        .value-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .benefit-list {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 1.25rem;
-        }
-
-        .benefit-list li {
-            position: relative;
-            padding-left: 1.4rem;
-            margin-bottom: 0.65rem;
-            color: var(--text-main);
-            font-size: 0.92rem;
-            line-height: 1.5;
-        }
-
-        .benefit-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        .buyer .benefit-list li::before {
-            color: var(--primary);
-        }
-
-        .seller .benefit-list li::before {
-            color: var(--accent);
-        }
-
-        .item {
-            margin-bottom: 1.75rem;
-        }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            margin-bottom: 0.25rem;
-        }
-
-        .item-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--text-main);
-        }
-
-        .item-date {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-        }
-
-        .item-subtitle {
-            font-size: 0.95rem;
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .standard-list {
-            list-style-position: outside;
-            padding-left: 1.25rem;
-            color: var(--text-muted);
-        }
-
-        .standard-list li {
-            margin-bottom: 0.6rem;
-            line-height: 1.6;
-        }
-
-        .standard-list strong {
-            color: var(--text-main);
-        }
-
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-
-        .skill-tag {
-            background-color: var(--card-inner);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 0.4rem 0.85rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .market-widgets-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .widget-box {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.25rem;
-            color: #0f172a;
-            overflow-x: auto;
-        }
-
-        .cta-banner {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid var(--primary);
-            border-radius: 12px;
-            padding: 2.25rem 2rem;
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .cta-banner h3 {
-            font-size: 1.4rem;
-            color: var(--text-main);
-            margin-bottom: 0.5rem;
-        }
-
-        .cta-banner p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--primary);
-            color: #0f172a;
-            padding: 0.85rem 1.85rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: background 0.2s ease, transform 0.1s ease;
-        }
-
-        .cta-btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-
-        @media (max-width: 720px) {
-            .container {
-                padding: 1.75rem;
-            }
-            header {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.25rem;
-            }
-            .profile-pic {
-                width: 120px;
-                height: 120px;
-            }
-            .contact-links {
-                justify-content: center;
-            }
-            .value-grid {
-                grid-template-columns: 1fr;
-            }
-            .item-header {
-                flex-direction: column;
-            }
-            .mls-hero-title {
-                font-size: 1.6rem;
-            }
-            .mls-input-group {
-                flex-direction: column;
-            }
-            .mls-input-group button {
-                padding: 0.85rem;
-                justify-content: center;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <header>
-        <a href="Profile.png" target="_blank">
-            <img src="Profile.png" alt="Anthony Tran Portrait" class="profile-pic">
-        </a>
-        <div class="header-text">
-            <h1>Anthony Tran</h1>
-            <div class="license">Licensed California Real Estate Agent | DRE #01985292</div>
-            <div class="contact-links">
-                <span>Location: San Jose, CA</span>
-                <span>Cell: <a href="sms:16693673632">669-367-3632</a></span>
-                <span>LinkedIn: <a href="https://www.linkedin.com/in/realtortran/" target="_blank">linkedin.com/in/realtortran</a></span>
-                <span>YouTube: <a href="https://www.youtube.com/@BayRealtorTran" target="_blank">@BayRealtorTran</a></span>
-                <span>TikTok: <a href="https://www.tiktok.com/@TonyTravelVN" target="_blank">@TonyTravelVN</a></span>
-            </div>
-        </div>
+<!-- =================== INTERACTIVE ACHIEVEMENTS ROADMAP =================== -->
+<section id="achievements-section" class="achieve-wrapper">
+  <div class="achieve-container">
+    
+    <header class="achieve-header">
+      <span class="achieve-badge">Interactive Roadmap</span>
+      <h2>Unlock Your Real Estate Milestones</h2>
+      <p>Follow the path to closing. Watch your equity house and investment key unlock as you progress.</p>
+      
+      <!-- Secret click discovery hint -->
+      <div id="secret-hint" class="secret-banner">
+        🎉 <strong>+5% Explorer Bonus Unlocked:</strong> Thanks for visiting! Click on either icon below to find another hidden 5%!
+      </div>
     </header>
 
-    <div class="mls-hero-container">
-        <h2 class="mls-hero-title">Find <em>Your Place</em> in California</h2>
-        
-        <div class="mls-search-wrapper">
-            <div class="search-tabs">
-                <button type="button" class="search-tab-btn active" onclick="setSearchType('Buy', this)">Buy</button>
-                <button type="button" class="search-tab-btn" onclick="setSearchType('Rent', this)">Rent</button>
-                <button type="button" class="search-tab-btn" onclick="setSearchType('Recently Sold', this)">Recently Sold</button>
-            </div>
-
-            <form id="mlsSearchForm" action="https://www.mlslistings.com/Search/Result" method="GET" target="_blank">
-                <div class="mls-input-group">
-                    <input 
-                        type="text" 
-                        name="searchText" 
-                        id="mlsSearchInput"
-                        placeholder="San Jose, CA" 
-                        required
-                    >
-                    <button type="submit">🔍 Search</button>
-                </div>
-            </form>
+    <div class="dual-columns">
+      
+      <!-- ================= LEFT: SELLER COLUMN ================= -->
+      <div class="column-card seller-col">
+        <div class="col-header">
+          <h3>Seller Journey</h3>
+          <span class="pct-tag" id="seller-pct-tag">5% Complete</span>
         </div>
+
+        <!-- Interactive House Graphic -->
+        <div class="visual-box" id="seller-graphic" title="Click the house for a bonus!">
+          <div class="svg-container">
+            <svg viewBox="0 0 100 100" class="milestone-svg">
+              <defs>
+                <clipPath id="house-clip">
+                  <!-- House Shape: Roof Triangle + Body -->
+                  <polygon points="50,10 90,45 80,45 80,90 20,90 20,45 10,45" />
+                </clipPath>
+              </defs>
+              <!-- Background / Empty House -->
+              <polygon points="50,10 90,45 80,45 80,90 20,90 20,45 10,45" class="svg-bg" />
+              <!-- Fill Level -->
+              <rect id="seller-fill" x="0" y="95" width="100" height="100" fill="url(#seller-gold-grad)" clip-path="url(#house-clip)" />
+              <!-- House Details / Outline -->
+              <polygon points="50,10 90,45 80,45 80,90 20,90 20,45 10,45" class="svg-stroke" />
+              <!-- Door & Window Accents -->
+              <rect x="42" y="60" width="16" height="30" class="svg-accent-stroke" />
+              <rect x="30" y="48" width="12" height="12" class="svg-accent-stroke" />
+              <rect x="58" y="48" width="12" height="12" class="svg-accent-stroke" />
+              
+              <linearGradient id="seller-gold-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="#b45309" />
+                <stop offset="100%" stop-color="#fbbf24" />
+              </linearGradient>
+            </svg>
+          </div>
+          <span class="tap-hint">Tap house to inspect & unlock +5%</span>
+        </div>
+
+        <!-- Checklist -->
+        <div class="checklist" id="seller-list">
+          <label class="step-item">
+            <input type="checkbox" data-val="18" onchange="updateProgress('seller')">
+            <span class="custom-chk"></span>
+            <div class="step-txt">
+              <strong>1. Strategic Valuation & Comps</strong>
+              <small>Review current neighborhood sales & net equity power</small>
+            </div>
+          </label>
+
+          <label class="step-item">
+            <input type="checkbox" data-val="18" onchange="updateProgress('seller')">
+            <span class="custom-chk"></span>
+            <div class="step-txt">
+              <strong>2. Prep, Staging & Disclosures</strong>
+              <small>Compliance package, natural hazards, pre-inspection</small>
+            </div>
+          </label>
+
+          <label class="step-item">
+            <input type="checkbox" data-val="18" onchange="updateProgress('seller')">
+            <span class="custom-chk"></span>
+            <div class="step-txt">
+              <strong>3. High-Impact Marketing Launch</strong>
+              <small>MLS, digital syndication & targeted buyer outreach</small>
+            </div>
+          </label>
+
+          <label class="step-item">
+            <input type="checkbox" data-val="18" onchange="updateProgress('seller')">
+            <span class="custom-chk"></span>
+            <div class="step-txt">
+              <strong>4. Offer Review & Negotiation</strong>
+              <small>Vetting buyer financing, terms, contingencies</small>
+            </div>
+          </label>
+
+          <label class="step-item">
+            <input type="checkbox" data-val="18" onchange="updateProgress('seller')">
+            <span class="custom-chk"></span>
+            <div class="step-txt">
+              <strong>5. Escrow Closing & Wire Transfer</strong>
+              <small>Final walkthrough, deed recording & funds distributed</small>
+            </div>
+          </label>
+        </div>
+
+        <a href="#contact" class="action-btn seller-btn">Start Listing Strategy</a>
+      </div>
+
+      <!-- ================= RIGHT: BUYER COLUMN ================= -->
+      <div class="column-card buyer-col">
+        <div class="col-header">
+          <h3>Buyer & Investor Journey</h3>
+          <span class="pct-tag" id="buyer-pct-tag">5% Complete</span>
+        </div>
+
+        <!-- Interactive Key Wrapped in Dollar Sign Graphic -->
+        <div class="visual-box" id="buyer-graphic" title="Click the key for a bonus!">
+          <div class="svg-container">
+            <svg viewBox="0 0 100 100" class="milestone-svg">
+              <defs>
+                <clipPath id="buyer-clip">
+                  <!-- Unified silhouette: Key Body + Dollar Sign Envelope -->
+                  <!-- Dollar Sign vertical bars & curves wrapped around key -->
+                  <path d="M47,5 L53,5 L53,14 C65,15 72,22 72,30 C72,38 65,43 53,45 L53,60 C62,58 66,54 66,50 L74,50 C74,58 67,65 53,67 L53,75 C58,76 60,80 60,85 C60,92 55,97 48,97 C41,97 36,92 36,85 C36,80 38,76 43,75 L43,67 C31,65 24,58 24,49 C24,40 31,35 43,33 L43,18 C35,20 31,24 31,28 L23,28 C23,20 30,13 43,11 L43,5 L47,5 Z 
+                           M53,22 L53,37 C61,35 64,32 64,29 C64,25 61,23 53,22 Z 
+                           M43,41 L43,58 C35,56 32,53 32,49 C32,44 36,42 43,41 Z 
+                           M48,80 C45,80 44,82 44,85 C44,88 45,90 48,90 C51,90 52,88 52,85 C52,82 51,80 48,80 Z" />
+                  <!-- Key teeth cutout -->
+                  <polygon points="53,48 65,48 65,54 53,54 53,58 62,58 62,64 53,64" />
+                </clipPath>
+              </defs>
+              <!-- Silhouette Base / Unfilled -->
+              <rect x="0" y="0" width="100" height="100" class="svg-bg" clip-path="url(#buyer-clip)" />
+              <!-- Liquid Fill Level -->
+              <rect id="buyer-fill" x="0" y="95" width="100" height="100" fill="url(#buyer-emerald-grad)" clip-path="url(#buyer-clip)" />
+              <!-- Outer Accent Stroke Lines -->
+              <line x1="50" y1="2" x2="50" y2="98" stroke="#059669" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.4" />
+              
+              <linearGradient id="buyer-emerald-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="#047857" />
+                <stop offset="100%" stop-color="#34d399" />
+              </linearGradient>
+            </svg>
+          </div>
+          <span class="tap-hint">Tap key to inspect & unlock +5%</span>
+        </div>
+
+        <!-- Checklist -->
+        <div class="checklist" id="buyer-list">
+          <label class="step-item">
+            <input type="checkbox" data-val="18" onchange="updateProgress('buyer')">
+            <span class="custom-chk"></span>
+            <div class="step-txt">
+              <strong>1. Pre-Approval & Budget Verification</strong>
+              <small>Loan options, rate lock targets & down payment strategy</small>
+            </div>
+          </label>
+
+          <label class="step-item">
+            <input type="checkbox" data-val="18" onchange="updateProgress('buyer')">
+            <span class="custom-chk"></span>
+            <div class="step-txt">
+              <strong>2. Curated Property Hunting</strong>
+              <small>Targeting on-market & off-market homes, private tours</small>
+            </div>
+          </label>
+
+          <label class="step-item">
+            <input type="checkbox" data-val="18" onchange="updateProgress('buyer')">
+            <span class="custom-chk"></span>
+            <div class="step-txt">
+              <strong>3. Competitive Offer Strategy</strong>
+              <small>Comparative market analysis & strategic purchase contract terms</small>
+            </div>
+          </label>
+
+          <label class="step-item">
+            <input type="checkbox" data-val="18" onchange="updateProgress('buyer')">
+            <span class="custom-chk"></span>
+            <div class="step-txt">
+              <strong>4. Underwriting, Inspections & Appraisal</strong>
+              <small>Physical inspection review, repair credits & loan sign-off</small>
+            </div>
+          </label>
+
+          <label class="step-item">
+            <input type="checkbox" data-val="18" onchange="updateProgress('buyer')">
+            <span class="custom-chk"></span>
+            <div class="step-txt">
+              <strong>5. Final Walkthrough & Key Handover</strong>
+              <small>Deed recorded at county recorder, keys delivered to you</small>
+            </div>
+          </label>
+        </div>
+
+        <a href="#contact" class="action-btn buyer-btn">Get Pre-Approved</a>
+      </div>
+
     </div>
+  </div>
+</section>
 
-    <section>
-        <h2>Why Work With Me</h2>
-        <p class="lead-text">
-            I deliver measurable financial leverage at the closing table, protect your cash reserves, and eliminate transaction risk.
-        </p>
-        <p class="summary-text">
-            Real estate transactions in Silicon Valley require an aggressive contractual edge. Across 30+ completed transactions, my strategic negotiations have saved clients an average of $10,000 to $15,000 in direct contract terms—secured through repair credits, closing cost concessions, price adjustments, and fee allocations. Whether you are coming in with cash, securing a mortgage, or looking to cash out maximum equity as a seller, you get a data-driven negotiator who treats your capital like his own.
-        </p>
+<!-- ================= STYLES ================= -->
+<style>
+.achieve-wrapper {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 60px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.achieve-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.achieve-header {
+  text-align: center;
+  margin-bottom: 45px;
+}
+.achieve-badge {
+  display: inline-block;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  margin-bottom: 12px;
+}
+.achieve-header h2 {
+  font-size: 2.2rem;
+  margin: 0 0 10px 0;
+  font-weight: 800;
+  color: #ffffff;
+}
+.achieve-header p {
+  font-size: 1.05rem;
+  color: #94a3b8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.secret-banner {
+  margin-top: 18px;
+  display: inline-block;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+  font-size: 0.88rem;
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
 
-        <div class="stat-grid">
-            <div class="stat-box">
-                <div class="stat-number">$10K – $15K</div>
-                <div class="stat-label">Avg. Contract Savings</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">30+</div>
-                <div class="stat-label">Closed Transactions</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">6+ Years</div>
-                <div class="stat-label">Bay Area Market Focus</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">0%</div>
-                <div class="stat-label">Park Fallout Rate</div>
-            </div>
-        </div>
-    </section>
+/* Two Columns */
+.dual-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+@media (max-width: 860px) {
+  .dual-columns {
+    grid-template-columns: 1fr;
+  }
+}
 
-    <section>
-        <h2>Featured Case Study</h2>
-        <div class="case-study-card">
-            <h3>"I solved a seller's worst 2 year nightmare in 2 weeks, here's the story:"</h3>
-            <p>Watch how strategic problem solving, park negotiation, and targeted marketing turned around an unsold listing that languished for years into a confirmed closing in just 14 days.</p>
-            
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/AEgXu-8aYpk" 
-                    title="I solved a seller's worst 2 year nightmare in 2 weeks, here's the story" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            <a href="https://youtu.be/AEgXu-8aYpk" target="_blank" class="video-fallback-link">
-                ↗ Watch directly on YouTube (https://youtu.be/AEgXu-8aYpk)
-            </a>
-        </div>
-    </section>
+.column-card {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 30px 25px;
+  border: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
 
-    <section>
-        <h2>Tailored Client Representation</h2>
-        <div class="value-grid">
-            <div class="value-card buyer">
-                <div>
-                    <h3>For Home Buyers</h3>
-                    <p>Whether you hold liquid cash or are leveraging specialized mortgage or chattel financing, I protect your earnest deposit and secure institutional terms.</p>
-                    <ul class="benefit-list">
-                        <li><strong>$10K–$15K Term Savings:</strong> Ruthless negotiation on inspection findings, closing cost credits, and purchase price offsets that keep thousands of dollars in your bank account.</li>
-                        <li><strong>Cash & Financing Structuring:</strong> Tailored offer packaging to make mortgage-backed offers as compelling as all-cash bids to listing agents and sellers.</li>
-                        <li><strong>Park Approval Assurance:</strong> Comprehensive audit of park tenancy rules, income qualification formulas, and background verifications with zero application denials.</li>
-                        <li><strong>Title & Lien Clearance:</strong> Rigorous audits through HCD and county records to confirm zero hidden tax holds, mechanics liens, or undisclosed park debt.</li>
-                    </ul>
-                </div>
-            </div>
+.col-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.col-header h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.pct-tag {
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #0f172a;
+}
+.seller-col .pct-tag { color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+.buyer-col .pct-tag { color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
 
-            <div class="value-card seller">
-                <div>
-                    <h3>For Home Sellers</h3>
-                    <p>Keep the equity you worked hard to build. I insulate you from post-inspection credit renegotiations and market your home for top-dollar liquidity.</p>
-                    <ul class="benefit-list">
-                        <li><strong>Protected Net Proceeds:</strong> Defend your bottom line against unwarranted buyer repair demands and lock in contracts that close at agreed-upon numbers.</li>
-                        <li><strong>Targeted Video Distribution:</strong> Custom video property showcases filmed and distributed via YouTube (@BayRealtorTran) and TikTok (@TonyTravelVN) to create massive buyer urgency.</li>
-                        <li><strong>Pre-Screened Buyers Only:</strong> Cross-check pre-approvals and cash verification with park management requirements prior to contract signing, eliminating 30-day escrow fallouts.</li>
-                        <li><strong>Space Rent Strategy:</strong> Optimize listing price points against current and projected park space rents to maximize buyer purchasing capacity.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+/* Visual Containers */
+.visual-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #0f172a;
+  border-radius: 12px;
+  border: 1px dashed #475569;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+  user-select: none;
+}
+.visual-box:hover {
+  transform: translateY(-2px);
+  border-color: #94a3b8;
+}
+.svg-container {
+  width: 120px;
+  height: 120px;
+}
+.milestone-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.svg-bg {
+  fill: #334155;
+}
+.svg-stroke {
+  fill: none;
+  stroke: #64748b;
+  stroke-width: 2;
+}
+.svg-accent-stroke {
+  fill: none;
+  stroke: #475569;
+  stroke-width: 1.5;
+}
+.tap-hint {
+  font-size: 0.72rem;
+  color: #64748b;
+  margin-top: 10px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
 
-    <section>
-        <h2>Live San Jose Market Trends</h2>
-        <p class="summary-text" style="margin-bottom: 0.4rem;">
-            Real-time residential market analytics for San Jose, powered by MLSListings / Aculist.
-        </p>
-        <p class="disclaimer-text">
-            Market trend analytics are compiled from closed MLSListings transactions and update automatically on a monthly cycle.
-        </p>
+/* Checklist Items */
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 25px 0;
+  flex-grow: 1;
+}
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(15, 23, 42, 0.5);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.step-item:hover {
+  background: rgba(15, 23, 42, 0.9);
+}
+.step-item input {
+  display: none;
+}
+.custom-chk {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid #64748b;
+  display: inline-block;
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  transition: all 0.2s;
+}
+.step-item input:checked + .custom-chk {
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+.seller-col .step-item input:checked + .custom-chk {
+  background: #f59e0b;
+  border-color: #f59e0b;
+}
+.buyer-col .step-item input:checked + .custom-chk {
+  background: #10b981;
+  border-color: #10b981;
+}
+.step-item input:checked + .custom-chk:after {
+  content: '✓';
+  position: absolute;
+  top: -2px;
+  left: 3px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+}
+.step-txt strong {
+  display: block;
+  font-size: 0.92rem;
+  color: #e2e8f0;
+}
+.step-txt small {
+  display: block;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
 
-        <div class="market-widgets-container">
-            <div class="widget-box">
-                <div data-widgettype='trends' 
-                     data-aculistwidget="" 
-                     data-geographytype='City' 
-                     data-geographyname='San Jose' 
-                     data-county='Santa Clara' 
-                     data-colors='#fdb921,#0033a0,#7ED321,#1DB2B8' 
-                     data-period='10' 
-                     data-periodtype='Year' 
-                     data-tokenid='defaultmspvslp' 
-                     data-classtype='Residential - Single Family,Residential - Common Interest' 
-                     data-usertoken='7af5dfb5-c8ed-4348-97b3-73200725d6a87af5dfb5-c8ed-4348-97b3-73200725d6a8' 
-                     data-title="true">
-                </div>
-            </div>
+/* Action CTA Buttons */
+.action-btn {
+  display: block;
+  text-align: center;
+  padding: 13px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.action-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+.seller-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff;
+}
+.buyer-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+}
+</style>
 
-            <div class="widget-box">
-                <div data-widgettype='trends' 
-                     data-aculistwidget="" 
-                     data-geographytype='City' 
-                     data-geographyname='San Jose' 
-                     data-county='Santa Clara' 
-                     data-colors='#fdb921,#0033a0,#7ED321,#1DB2B8' 
-                     data-period='10' 
-                     data-periodtype='Year' 
-                     data-tokenid='defaultdomvslp' 
-                     data-classtype='Residential - Single Family,Residential - Common Interest' 
-                     data-usertoken='7af5dfb5-c8ed-4348-97b3-73200725d6a87af5dfb5-c8ed-4348-97b3-73200725d6a8' 
-                     data-title="true">
-                </div>
-            </div>
-
-            <div class="widget-box">
-                <div data-widgettype='trends' 
-                     data-aculistwidget="" 
-                     data-geographytype='City' 
-                     data-geographyname='San Jose' 
-                     data-county='Santa Clara' 
-                     data-colors='#fdb921,#0033a0,#7ED321,#1DB2B8' 
-                     data-period='10' 
-                     data-periodtype='Year' 
-                     data-tokenid='defaultppsqft' 
-                     data-classtype='Residential - Single Family,Residential - Common Interest' 
-                     data-usertoken='7af5dfb5-c8ed-4348-97b3-73200725d6a87af5dfb5-c8ed-4348-97b3-73200725d6a8' 
-                     data-title="true">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <h2>Professional Experience & Results</h2>
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Licensed Real Estate Agent & Contract Strategist</span>
-                <span class="item-date">2018 – Present</span>
-            </div>
-            <div class="item-subtitle">Independent Real Estate Practice — San Jose, CA</div>
-            <ul class="standard-list">
-                <li><strong>High-Value Contract Negotiations:</strong> Successfully negotiated 30+ transactions, capturing an average of $10,000 to $15,000 in direct contract term value per deal through inspection credits, fee absorptions, and price structure modifications.</li>
-                <li><strong>Park & Regulatory Compliance:</strong> Flawlessly navigated complex California Department of Housing and Community Development (HCD) transfer procedures, park resale inspections, and residency approvals with a 100% closing completion rate in escrow.</li>
-                <li><strong>Organic Video Distribution:</strong> Produced and distributed high-engagement video walkthrough tours across YouTube and TikTok, generating tens of thousands of direct buyer views and cutting standard days on market.</li>
-                <li><strong>End-to-End Escrow Protection:</strong> Drafted and executed customized addenda, counter-offers, and contingency removals to shield clients from deposit forfeiture and post-close liability.</li>
-            </ul>
-        </div>
-
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Cross-Border Operations & Systematic Execution</span>
-                <span class="item-date">2-Year Project</span>
-            </div>
-            <div class="item-subtitle">Remote Deal Infrastructure & Analytical Cost Modeling</div>
-            <ul class="standard-list">
-                <li><strong>Remote Deal Infrastructure:</strong> Built cross-border communication pipelines to facilitate real estate negotiations, document signings, and escrow milestones remotely with zero operational delay.</li>
-                <li><strong>Analytical Capital Allocation:</strong> Executed systematic risk-managed financial models, combining discipline and quantitative validation to maintain high execution reliability.</li>
-            </ul>
-        </div>
-    </section>
-
-    <section>
-        <h2>Core Value & Expertise</h2>
-        <div class="skills-grid">
-            <span class="skill-tag">$10K–$15K Average Term Savings</span>
-            <span class="skill-tag">30+ Closed Transactions</span>
-            <span class="skill-tag">Buyer Cash & Loan Strategy</span>
-            <span class="skill-tag">Seller Equity Maximization</span>
-            <span class="skill-tag">Manufactured & Mobile Home Valuation</span>
-            <span class="skill-tag">Park Application Approval Specialist</span>
-            <span class="skill-tag">HCD & County Title Transfer</span>
-            <span class="skill-tag">High-Impact Video Marketing</span>
-        </div>
-    </section>
-
-    <div class="cta-banner">
-        <h3>Ready to Buy or Sell in the Bay Area?</h3>
-        <p>Send a direct text to evaluate your target property, financing strategy, or current home value with zero obligation.</p>
-        <a href="sms:16693673632;?&body=Hi%20Anthony,%20I'm%20interested%20in%20buying/selling%20a%20home%20in%20the%20Bay%20Area." class="cta-btn">💬 Text Anthony: (669) 367-3632</a>
-    </div>
-</div>
-
+<!-- ================= JAVASCRIPT ================= -->
 <script>
-    // Search tab switcher
-    function setSearchType(type, button) {
-        document.querySelectorAll('.search-tab-btn').forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        
-        const form = document.getElementById('mlsSearchForm');
-        const input = document.getElementById('mlsSearchInput');
-        
-        if (type === 'Buy') {
-            form.action = 'https://www.mlslistings.com/Search/Result';
-            input.placeholder = 'San Jose, CA (Homes for Sale)';
-        } else if (type === 'Rent') {
-            form.action = 'https://www.mlslistings.com/Search/Rental';
-            input.placeholder = 'San Jose, CA (Rentals)';
-        } else if (type === 'Recently Sold') {
-            form.action = 'https://www.mlslistings.com/Search/Sold';
-            input.placeholder = 'San Jose, CA (Recently Sold Comps)';
-        }
+// Base state: 5% already given for being on site
+const state = {
+  seller: { base: 5, clicked: false, stepsTotal: 0 },
+  buyer:  { base: 5, clicked: false, stepsTotal: 0 }
+};
+
+// Handle checking/unchecking roadmap items
+function updateProgress(side) {
+  const container = document.getElementById(`${side}-list`);
+  const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+  
+  let checkedSum = 0;
+  checkboxes.forEach(cb => {
+    if (cb.checked) checkedSum += parseFloat(cb.getAttribute('data-val'));
+  });
+
+  state[side].stepsTotal = checkedSum;
+  renderProgress(side);
+}
+
+// Render the graphical fill & percentage tag
+function renderProgress(side) {
+  const bonus = state[side].clicked ? 5 : 0;
+  let total = state[side].base + bonus + state[side].stepsTotal;
+  if (total > 100) total = 100;
+
+  // Update tag
+  document.getElementById(`${side}-pct-tag`).textContent = `${Math.round(total)}% Complete`;
+
+  // Update SVG liquid fill (y goes from 100 down to 0)
+  const fillElement = document.getElementById(`${side}-fill`);
+  const targetY = 100 - total;
+  fillElement.setAttribute('y', targetY);
+}
+
+// Click-to-award secret +5% on graphic interaction
+function attachIconBonus(side, graphicId) {
+  const el = document.getElementById(graphicId);
+  el.addEventListener('click', () => {
+    if (!state[side].clicked) {
+      state[side].clicked = true;
+      el.querySelector('.tap-hint').textContent = '✨ Secret +5% Unlocked!';
+      el.querySelector('.tap-hint').style.color = '#38bdf8';
+      renderProgress(side);
     }
+  });
+}
 
-    // MLS / Aculist Script Loader
-    (function () {
-        var bi = document.createElement('script');
-        bi.type = 'text/javascript';
-        bi.async = true;
-        bi.src = 'https://aculist-widget-assets-cdn.mlslmedia.com/aculist-embed-widgetdiv.js?v=3.2';
-        var s = document.getElementsByTagName('body')[0];
-        s.appendChild(bi);
-    })();
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  attachIconBonus('seller', 'seller-graphic');
+  attachIconBonus('buyer', 'buyer-graphic');
+  renderProgress('seller');
+  renderProgress('buyer');
+});
 </script>
-
-</body>
-</html>
